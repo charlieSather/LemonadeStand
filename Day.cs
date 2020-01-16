@@ -16,21 +16,15 @@ namespace LemondeStandProject
         {
             weather = new Weather();
             customers = new List<Customer>();
-            SetCustomers();
 
-        }
-
-        public void SetCustomers()
-        {
-            int numOfCustomers = weather.DetermineNumberOfCustomers();
-
-            for (int i = 1; i <= numOfCustomers; i++)
+            for(int i = 0; i < 25; i++)
             {
                 customers.Add(new Customer($"Customer {i}"));
             }
         }
 
-    
+
+
 
     }
 }
