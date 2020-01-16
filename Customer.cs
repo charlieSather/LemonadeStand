@@ -19,5 +19,48 @@ namespace LemondeStandProject
         {
             name = "Customer";
         }
+
+        public bool BuyLemonade(Weather weather, Recipe recipe, double price)
+        {
+            bool willBuy = false;
+
+            //TODO
+
+            return willBuy;
+        }
+
+        public int DetermineNumberOfCustomers(Weather weather)
+        {
+            int numCustomers = 0;
+
+            switch (weather.condition)
+            {
+                case ("Sunny"):
+                    numCustomers = 50;
+                    break;
+                case ("Cloudy"):
+                    numCustomers = 40;
+                    break;
+                case ("Rainy"):
+                    numCustomers = 15;
+                    break;
+                case ("Stormy"):
+                    numCustomers = 5;
+                    break;
+                case ("Snowing"):
+                    numCustomers = 5;
+                    break;
+                case ("Windy"):
+                    numCustomers = 20;
+                    break;
+                case ("Icy"):
+                    numCustomers = 10;
+                    break;
+                default:
+                    //INterface couldn't match current weather's condition
+                    break;
+            }
+            return numCustomers;
+        }
     }
 }

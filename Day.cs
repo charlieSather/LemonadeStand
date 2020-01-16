@@ -14,8 +14,17 @@ namespace LemondeStandProject
 
         public Day()
         {
+            weather = new Weather();
+            customers = new List<Customer>();
 
+            for(int i = 0; i < 25; i++)
+            {
+                customers.Add(new Customer($"Customer {i}"));
+            }
         }
+
+
+
 
     }
 }

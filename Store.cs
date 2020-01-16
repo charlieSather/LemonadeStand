@@ -45,13 +45,13 @@ namespace LemondeStandProject
                         player.wallet.SpendMoney(pricePerLemon);
                     }
                     break;
-                case ("SugarCube"):
+                case ("Sugar Cube"):
                     if (player.wallet.money > pricePerSugarCube)
                     {
                         player.wallet.SpendMoney(pricePerSugarCube);
                     }
                     break;
-                case ("IceCube"):
+                case ("Ice Cube"):
                     if (player.wallet.money > pricePerIceCube)
                     {
                         player.wallet.SpendMoney(pricePerIceCube);
@@ -97,7 +97,7 @@ namespace LemondeStandProject
                         player.inventory.AddLemons(numOfItems);                        
                     }
                     break;
-                case ("SugarCube"):
+                case ("Sugar Cube"):
                     if (player.wallet.money > BulkSugarPrice(numOfItems))
                     {
                         player.wallet.SpendMoney(BulkSugarPrice(numOfItems));
@@ -105,7 +105,7 @@ namespace LemondeStandProject
                     }
                    
                     break;
-                case ("IceCube"):
+                case ("Ice Cube"):
                     if(player.wallet.money > BulkIcePrice(numOfItems))
                     {
                         player.wallet.SpendMoney(BulkIcePrice(numOfItems));
