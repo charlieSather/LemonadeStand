@@ -9,9 +9,9 @@ namespace LemondeStandProject
     class Store
     {
         public double pricePerLemon { get; set; }
-        public double pricePerSugarCube { get; set; }
-        public double pricePerIceCube { get; set; }
-        public double pricePerCup { get; set; }
+        public double pricePerSugarCube { get; private set; }
+        public double pricePerIceCube { get; private set; }
+        public double pricePerCup { get; private set; }
 
         public Store()
         {
