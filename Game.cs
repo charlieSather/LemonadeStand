@@ -12,7 +12,7 @@ namespace LemondeStandProject
         Player player2;
         Store store;
         List<Day> week;
-        int currentDay;
+        int currentDay = 0;
         int weekLength = 7;
         int players;
         
@@ -59,6 +59,7 @@ namespace LemondeStandProject
 
         public void WorkDay(Day day, Player player)
         {
+
             foreach(Customer customer in day.customers)
             {
                 if(customer.CheckIfBuy(day.weather, player.recipe))
@@ -105,8 +106,9 @@ namespace LemondeStandProject
 
             do
             {
+                week[currentDay].weather.SetTodaysWeather();
                 RunDay(player1);
-
+                
                 if (players == 2)
                 {
                     RunDay(player2);

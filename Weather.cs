@@ -32,7 +32,7 @@ namespace LemondeStandProject
         public void SetWeatherForeast()
         {
             string randCondition = GetRandomWeatherCondition();
-            predictedForecast = "" + randCondition + RandomTemperature(randCondition);
+            predictedForecast = "" + randCondition + " " + RandomTemperature(randCondition);
         }
 
         public string GetRandomWeatherCondition()
@@ -52,7 +52,7 @@ namespace LemondeStandProject
             else
             {
                 condition = forecastSplit[0];
-                temperature = MyRandom.Next(-4, 5) + Int32.Parse(forecastSplit[1]);
+                temperature = MyRandom.Next(-5, 5) + Int32.Parse(forecastSplit[1]);
             }
 
             this.temperature = temperature;
