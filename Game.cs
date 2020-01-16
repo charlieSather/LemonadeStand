@@ -10,19 +10,17 @@ namespace LemondeStandProject
     {
         Player player1;
         Player player2;
+        Store store;
         List<Day> week;
         int currentDay;
         int weekLength = 7;
         int players;
         
 
-        public Game(Player player1, Player player2)
+        public Game()
         {
             WeekSetup();
-
-            this.player1 = player1;
-            this.player2 = player2;
-
+            store = new Store();
         }
 
         public void WeekSetup()
@@ -34,10 +32,28 @@ namespace LemondeStandProject
             }
         }
         
-        public int CheckPlayers()
+        public void CheckPlayers()
         {
-            //players = INTERFACE.GET How many players
-            return 1;
+            players = Interface.GetPlayers();
+
+            switch(players)
+            {
+                case 1:
+                    string name = Interface.GetName(1);
+                    player1 = new Player(name);
+                    break;
+                case 2:
+                    name = Interface.GetName(1);
+                    player1 = new Player(name);
+                    name = Interface.GetName(2);
+                    player2 = new Player(name);
+                    break;
+                //case 3:
+                //    name = Interface.GetName(1);
+                //    player1 = new Player(name);
+                //    player2 = new Computer();
+                //    break;
+            }
         }
 
         public void WorkDay(Day day, Player player)
@@ -55,18 +71,17 @@ namespace LemondeStandProject
             }
         }
 
-        public void GameOver()
+        public void GameOver(Player player)
         {
-            // Interface outputs the end of game information
-
-            Console.WriteLine("Done");
+            Interface.GameOver(player);
 
         }
 
         public void RunDay(Player player)
         {
             bool dayOver = false;
-            player.Setup();
+            player.SetRecipe();
+            store.Shop(player);
             do
             {
                 player.FillNewPitcher();
@@ -98,7 +113,7 @@ namespace LemondeStandProject
                 currentDay++;
             } while (currentDay <= weekLength);
 
-            GameOver();
+            GameOver(player1);
         }
     }
 }
