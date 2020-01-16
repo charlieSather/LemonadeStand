@@ -8,5 +8,10 @@ namespace LemondeStandProject
 {
     class Lemon : Item
     {
+
+        public Lemon()
+        {
+            name = "Lemon";
+        }
     }
 }

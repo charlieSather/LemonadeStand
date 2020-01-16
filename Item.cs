@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Item
+    abstract class Item
     {
+        public string name;
+
+        public Item()
+        {
+
+        }
+
+
     }
 }

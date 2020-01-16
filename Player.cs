@@ -8,5 +8,7 @@ namespace LemondeStandProject
 {
     class Player
     {
+
+        public Inventory inventory = new Inventory();
     }
 }
