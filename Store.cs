@@ -23,7 +23,7 @@ namespace LemondeStandProject
 
         public void RandomizePrices()
         {
-       
+
 
         }
 
@@ -35,9 +35,45 @@ namespace LemondeStandProject
             pricePerCup = cupPrice;
         }
 
-        public void BuyItem(Wallet wallet)
+        public void BuyItem(Player player, Item item)
         {
+            switch (item.name)
+            {
+                case ("Lemon"):
+                    break;
+                case ("SugarCube"):
+                    break;
+                case ("IceCube"):
+                    break;
+                case ("Cup"):
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        public bool CanBuyItem()
+        {
+            return false;
+        }
+
+        public double GetLemonPrice()
+        {
+            return pricePerLemon;
+        }
+
+        public double GetSugarCubePrice()
+        {
+            return pricePerSugarCube;
+        }
+
+        public double GetIceCubePrice()
+        {
+            return pricePerSugarCube;
+        }
+        public double GetCupPrice()
+        {
+            return pricePerCup;
         }
 
 
