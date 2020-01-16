@@ -20,7 +20,7 @@ namespace LemondeStandProject
             name = "Customer";
         }
 
-        public bool BuyLemonade(Weather weather, Recipe recipe, double price)
+        public bool CheckIfBuy(Weather weather, Recipe recipe)
         {
             bool willBuy = false;
 

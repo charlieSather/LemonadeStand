@@ -13,7 +13,7 @@ namespace LemondeStandProject
         public int amountOfSugarCubes;
         public int amountOfIceCubes;
         public double pricePerCup;
-        public int buyChance;
+        public double buyChance = 100;
 
         public Recipe(int lemonsIn, int sugarCubesIn, int iceCubesIn, double pricePerCupIn)
         {
@@ -25,7 +25,14 @@ namespace LemondeStandProject
 
         public void SetBuyChance()
         {
-            
+            double dif = Math.Abs(3 - amountOfLemons);
+            buyChance -= dif * 5;
+            dif = Math.Abs(4 - amountOfSugarCubes);
+            buyChance -= dif * 5;
+            dif = Math.Abs(5 - amountOfIceCubes);
+            buyChance -= dif * 5;
+            dif = Math.Abs(.25 - pricePerCup);
+            buyChance -= dif * 10;
         }
     }
 }

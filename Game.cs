@@ -44,7 +44,10 @@ namespace LemondeStandProject
         {
             foreach(Customer customer in day.customers)
             {
-                customer.CheckIfBuy(day.weather, player.recipe.buyChance, player.recipe.pricePerCup);
+                if(customer.CheckIfBuy(day.weather, player.recipe.buyChance, player.recipe.pricePerCup))
+                {
+
+                }
             }
         }
 
