@@ -13,12 +13,8 @@ namespace LemondeStandProject
         List<string> weatherConditions;
         public string predictedForecast { get; set; }
 
-        public Weather(string condition, int temperature, string predictedForecast)
+        public Weather()
         {
-            this.condition = condition;
-            this.temperature = temperature;
-            this.predictedForecast = predictedForecast;
-
             weatherConditions = new List<string>
             {
                 "Sunny",
@@ -29,12 +25,16 @@ namespace LemondeStandProject
                 "Windy",
                 "Icy",
             };
-        }
-        public Weather()
-        {
+            SetRandomCondition();
+            SetRandomTemperature();
+
+            //TODO
+            predictedForecast = "Sunny";
+
+
 
         }
-
+        
         public void SetRandomCondition()
         {
             Random rand = new Random();
