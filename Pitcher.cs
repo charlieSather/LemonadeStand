@@ -11,20 +11,16 @@ namespace LemondeStandProject
 
         public int cupsLeftInPitcher;
 
-        public Pitcher(int cupsLeft)
+        public Pitcher()
         {
-            cupsLeftInPitcher = cupsLeft;
+            cupsLeftInPitcher = 15;
         }
 
-        public void PourCup(Player player, Recipe recipe)
+        public void PourCup(Inventory inventory)
         {
-            for(int i = 0; i < recipe.amountOfLemons; i++)
-            {
-                player.inventory.lemons.RemoveAt(0);
-            }
-
-
             cupsLeftInPitcher--;
+
+            inventory.cups.RemoveAt(0);
         }
     }
 }
