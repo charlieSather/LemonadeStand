@@ -14,7 +14,7 @@ namespace LemondeStandProject
         int currentDay;
         int weekLength = 7;
         int players;
-        bool dayOver = false;
+        
 
         public Game(Player player1, Player player2)
         {
@@ -44,48 +44,61 @@ namespace LemondeStandProject
         {
             foreach(Customer customer in day.customers)
             {
-                if(customer.CheckIfBuy(day.weather, player.recipe.buyChance, player.recipe.pricePerCup))
+                if(customer.CheckIfBuy(day.weather, player.recipe))
                 {
-
+                    customer.BuyLemonade();
+                }
+                if(player.inventory.CheckInventory(player.recipe))
+                {
+                    break;
                 }
             }
         }
 
+        public void GameOver()
+        {
+            // Interface outputs the end of game information
+
+            Console.WriteLine("Done");
+
+        }
+
         public void RunDay(Player player)
         {
+            bool dayOver = false;
             player.Setup();
-
             do
             {
                 player.FillNewPitcher();
+                WorkDay(week[currentDay], player);
 
-                do
+
+                if (player.inventory.CheckInventory(player.recipe))
                 {
-
-                    WorkDay(week[currentDay]);
-
-
-                    if (player.inventory.CheckInventory(player.recipe))
-                    {
-                        dayOver = true;
-                    }
-
-                } while (player.pitcher.cupsLeftInPitcher > 0);
-                if (dayOver)
-                {
-                    break;
+                    dayOver = true;
                 }
-            } while (true);
 
-            currentDay++;
+            } while (dayOver);
+           
+
         }
         public void RunGame()
         {
             CheckPlayers();
 
+            do
+            {
+                RunDay(player1);
 
+                if (players == 2)
+                {
+                    RunDay(player2);
+                }
 
-            
+                currentDay++;
+            } while (currentDay <= weekLength);
+
+            GameOver();
         }
     }
 }

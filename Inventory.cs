@@ -59,7 +59,7 @@ namespace LemondeStandProject
 
         public void DisplayInventory()
         {
-
+            // Interface inventory display
         }
 
         public bool CheckInventory(Recipe recipe)
