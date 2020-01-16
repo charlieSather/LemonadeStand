@@ -12,6 +12,7 @@ namespace LemondeStandProject
         public int temperature { get; set; }
         List<string> weatherConditions;
         public string predictedForecast { get; set; }
+        public int buyChance { get;  set; }
 
         public Weather()
         {
@@ -25,67 +26,141 @@ namespace LemondeStandProject
                 "Windy",
                 "Icy",
             };
-            SetRandomCondition();
-            SetRandomTemperature();
-
-            //TODO
-            predictedForecast = "Sunny";
-
-
-
+            SetWeatherForeast();
         }
         
-        public void SetRandomCondition()
+        public void SetWeatherForeast()
         {
-            Random rand = new Random();
-
-            condition = weatherConditions[rand.Next(0, weatherConditions.Count)]; 
+            string randCondition = GetRandomWeatherCondition();
+            predictedForecast = "" + randCondition + " " + RandomTemperature(randCondition);
         }
 
-        public void SetTemperature(int temperature)
+        public string GetRandomWeatherCondition()
         {
+            return weatherConditions[MyRandom.Next(0, weatherConditions.Count)];
+        }
+
+        public void SetTodaysWeather()
+        {
+            string[] forecastSplit = predictedForecast.Split();
+
+            if(MyRandom.Next(10) < 2)
+            {
+                condition = GetRandomWeatherCondition();
+                temperature = RandomTemperature(condition);
+            }
+            else
+            {
+                condition = forecastSplit[0];
+                temperature = MyRandom.Next(-5, 5) + Int32.Parse(forecastSplit[1]);
+            }
+
             this.temperature = temperature;
+            SetBuyChance();
         }
-
-        public void SetRandomTemperature()
+        public int DetermineNumberOfCustomers()
         {
-            Random rand = new Random();
-            switch (condition)
+            int numCustomers = 0;
+
+            string[] splitForecast = predictedForecast.Split();
+
+            switch (splitForecast[0])
             {
                 case ("Sunny"):
-                    temperature = rand.Next(70, 81);
+                    numCustomers = 50;
                     break;
                 case ("Cloudy"):
-                    temperature = rand.Next(60, 71);
+                    numCustomers = 40;
                     break;
                 case ("Rainy"):
-                    temperature = rand.Next(40, 61);
+                    numCustomers = 15;
                     break;
                 case ("Stormy"):
-                    temperature = rand.Next(45, 66);
+                    numCustomers = 5;
                     break;
                 case ("Snowing"):
-                    temperature = rand.Next(0, 33);
+                    numCustomers = 5;
                     break;
                 case ("Windy"):
-                    temperature = rand.Next(70, 81);
+                    numCustomers = 20;
                     break;
                 case ("Icy"):
-                    temperature = rand.Next(-10, 21);
+                    numCustomers = 10;
                     break;
                 default:
-                    Console.WriteLine("Couldn't set temp");
+                    //INterface couldn't match current weather's condition
                     break;
+            }
+            return numCustomers;
+        }
+
+        public int RandomTemperature(string currentCondition)
+        {
+            int temp = 0;
+
+            switch (currentCondition)
+            {
+                case ("Sunny"):
+                    temp = MyRandom.Next(75, 96);
+                    break;
+                case ("Cloudy"):
+                    temp = MyRandom.Next(65, 75);
+                    break;
+                case ("Rainy"):
+                    temp = MyRandom.Next(50, 65);
+                    break;
+                case ("Stormy"):
+                    temp = MyRandom.Next(45, 61);
+                    break;
+                case ("Snowing"):
+                    temp = MyRandom.Next(0, 33);
+                    break;
+                case ("Windy"):
+                    temp = MyRandom.Next(40, 75);
+                    break;
+                case ("Icy"):
+                    temp = MyRandom.Next(-10, 21);
+                    break;
+                default:
+                    //Interface.SetTempError
+                    break;
+            }
+            return temp;
+        }
+
+        public void SetBuyChance()
+        {
+
+            if(temperature >= 90)
+            {
+                buyChance = 100;
+            }
+            else if(temperature >= 80 && temperature < 90)
+            {
+                buyChance = 90;
+            }
+            else if (temperature >= 70 && temperature < 80)
+            {
+                buyChance = 80;
+            }
+            else if(temperature >= 60 && temperature < 70)
+            {
+                buyChance = 70;
+            }
+            else if(temperature >= 50 && temperature < 60)
+            {
+                buyChance = 60;
+            }
+            else if (temperature >= 40 && temperature < 50)
+            {
+                buyChance = 50;
+            }
+            else
+            {
+                buyChance = 40;
             }
 
         }
-
         
-
-
-
-
-
-
     }
 }
