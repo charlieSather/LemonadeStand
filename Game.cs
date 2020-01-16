@@ -29,6 +29,7 @@ namespace LemondeStandProject
             for (int i = 0; i < weekLength; i++)
             {
                 Day day = new Day();
+                day.weather.SetTodaysWeather();
                 week.Add(day);
             }
         }
@@ -59,11 +60,16 @@ namespace LemondeStandProject
 
         public void WorkDay(Day day, Player player)
         {
-            foreach(Customer customer in day.customers)
+            for(int i = day.customers.Count - 1; i >= 0; i--)
             {
-                if(customer.CheckIfBuy(day.weather, player.recipe))
+                if(day.customers[i].CheckIfBuy(day.weather, player.recipe))
                 {
-                    customer.BuyLemonade(player);
+                    day.customers[i].BuyLemonade(player);
+                    day.customers.RemoveAt(i);
+                }
+                else
+                {
+                    day.customers.RemoveAt(i);
                 }
                 if(player.inventory.CheckInventory(player.recipe))
                 {
@@ -95,7 +101,7 @@ namespace LemondeStandProject
                 }
                 Console.WriteLine(player.wallet.money);
                 Console.ReadLine();
-            } while (dayOver);
+            } while (!dayOver);
            
 
         }
@@ -112,7 +118,6 @@ namespace LemondeStandProject
                     RunDay(player2);
                 }
 
-                Console.WriteLine();
                 currentDay++;
             } while (currentDay <= weekLength);
 

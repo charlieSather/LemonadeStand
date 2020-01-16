@@ -66,19 +66,19 @@ namespace LemondeStandProject
         {
             if(lemons.Count < recipe.amountOfLemons)
             {
-                return false;
+                return true;
             }
             if (sugarCubes.Count < recipe.amountOfSugarCubes)
             {
-                return false;
+                return true;
             }
             if (iceCubes.Count < recipe.amountOfIceCubes)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }
