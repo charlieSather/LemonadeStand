@@ -8,5 +8,7 @@ namespace LemondeStandProject
 {
     class Game
     {
+
+
     }
 }

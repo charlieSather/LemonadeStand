@@ -10,6 +10,9 @@ namespace LemondeStandProject
     {
         static void Main(string[] args)
         {
+            
+
+
         }
     }
 }
