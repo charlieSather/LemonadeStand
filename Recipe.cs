@@ -11,17 +11,15 @@ namespace LemondeStandProject
 
         public int amountOfLemons;
         public int amountOfSugarCubes;
-        public int amoutnOfIceCubes;
+        public int amountOfIceCubes;
         public double pricePerCup;
 
-        public Recipe(int lemonsIn, int sugarCubesIn, int iceCubesIn, int pricePerCupIn)
+        public Recipe(int lemonsIn, int sugarCubesIn, int iceCubesIn, double pricePerCupIn)
         {
             amountOfLemons = lemonsIn;
             amountOfSugarCubes = sugarCubesIn;
-            amoutnOfIceCubes = iceCubesIn;
+            amountOfIceCubes = iceCubesIn;
             pricePerCup = pricePerCupIn;
         }
-
-
     }
 }
