@@ -24,13 +24,8 @@ namespace LemondeStandProject
 
         public void SetRecipe()
         {
-            //interface.RepiceSet
-            recipe = new Recipe(lemonsIn, sugarIn, iceIn, priceIn);
-        }
-
-        public void Shop()
-        {
-
+            (int, int, int, double) recipe = Interface.GetRecipe();
+            this.recipe = new Recipe(recipe.Item1, recipe.Item2, recipe.Item3, recipe.Item4);
         }
 
         public void FillNewPitcher()
@@ -50,10 +45,5 @@ namespace LemondeStandProject
             }
         }
 
-        public void Setup()
-        {
-            Shop();
-            SetRecipe();
-        }
     }
 }

@@ -35,8 +35,6 @@ namespace LemondeStandProject
             pricePerCup = cupPrice;
         }
 
-        
-
         public double BulkLemonPrice(int numberOfLemons)
         {
             return pricePerLemon * numberOfLemons;
@@ -54,43 +52,51 @@ namespace LemondeStandProject
             return pricePerCup* numberOfCups;
         }
 
-        public void BulkBuy(Player player, Item item, int numOfItems)
+        public void Shop(Player player)
         {
-            switch (item.name)
+            int menuChoice = Interface.ShopMenu(player);
+
+            switch(menuChoice)
             {
-                case ("Lemon"):
-                    if (player.wallet.CheckMoney(BulkLemonPrice(numOfItems)))
+                case 1:
+                    int lemonsBought = Interface.BuyLemons();
+                    if (player.wallet.money > BulkLemonPrice(lemonsBought))
                     {
-                        player.wallet.SpendMoney(BulkLemonPrice(numOfItems));
-                        player.inventory.AddLemons(numOfItems);                        
+                        player.wallet.SpendMoney(BulkLemonPrice(lemonsBought));
+                        player.inventory.AddLemons(lemonsBought);
                     }
+                    Shop(player);
                     break;
-                case ("Sugar Cube"):
-                    if (player.wallet.CheckMoney(BulkSugarPrice(numOfItems)))
+                case 2:
+                    int sugarBought = Interface.BuySugar();
+                    if (player.wallet.money > BulkSugarPrice(sugarBought))
                     {
-                        player.wallet.SpendMoney(BulkSugarPrice(numOfItems));
-                        player.inventory.AddSugarCubes(numOfItems);
+                        player.wallet.SpendMoney(BulkSugarPrice(sugarBought));
+                        player.inventory.AddSugarCubes(sugarBought);
                     }
-                   
+                    Shop(player);
                     break;
-                case ("Ice Cube"):
-                    if(player.wallet.CheckMoney(BulkIcePrice(numOfItems)))
+                case 3:
+                    int iceBought = Interface.BuyIce();
+                    if (player.wallet.money > BulkIcePrice(iceBought))
                     {
-                        player.wallet.SpendMoney(BulkIcePrice(numOfItems));
-                        player.inventory.AddIceCubes(numOfItems);
+                        player.wallet.SpendMoney(BulkIcePrice(iceBought));
+                        player.inventory.AddIceCubes(iceBought);
                     }
+                    Shop(player);
                     break;
-                case ("Cup"):
-                    if (player.wallet.CheckMoney(BulkCupPrice(numOfItems)))
+                case 4:
+                    int cupsBought = Interface.BuyCups();
+                    if (player.wallet.money > BulkCupPrice(cupsBought))
                     {
-                        player.wallet.SpendMoney(BulkCupPrice(numOfItems));
-                        player.inventory.AddCups(numOfItems);
+                        player.wallet.SpendMoney(BulkCupPrice(cupsBought));
+                        player.inventory.AddCups(cupsBought);
                     }
+                    Shop(player);
                     break;
-                default:
+                case 5:
                     break;
             }
         }
-
     }
 }
