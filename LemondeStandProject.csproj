@@ -43,16 +43,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cup.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="IceCube.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Lemon.cs" />
+    <Compile Include="Pitcher.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="SugarCube.cs" />
+    <Compile Include="Wallet.cs" />
     <Compile Include="Weather.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bin\Debug\LemondeStandProject.exe.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\LemondeStandProject.csprojAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\LemondeStandProject.exe" />
+    <Content Include="bin\Debug\LemondeStandProject.pdb" />
+    <Content Include="obj\Debug\LemondeStandProject.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\LemondeStandProject.exe" />
+    <Content Include="obj\Debug\LemondeStandProject.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
