@@ -26,63 +26,71 @@ namespace LemondeStandProject
                 "Windy",
                 "Icy",
             };
-            condition = GetRandomWeatherCondition();
-            SetRandomTemperature();
-            predictedForecast = GetRandomWeatherCondition();
-            SetBuyChance();
+            SetWeatherForeast();
         }
         
+        public void SetWeatherForeast()
+        {
+            string randCondition = GetRandomWeatherCondition();
+            predictedForecast = "" + randCondition + RandomTemperature(randCondition);
+        }
+
         public string GetRandomWeatherCondition()
         {
-            // Random rand = new Random();
-
-            // return weatherConditions[rand.Next(0, weatherConditions.Count)];       
-            return weatherConditions[MyRandom.Next(0, weatherConditions.Count)];             
-
+            return weatherConditions[MyRandom.Next(0, weatherConditions.Count)];
         }
 
-        public void SetTemperature(int temperature)
+        public void SetTodaysWeather()
         {
+            string[] forecastSplit = predictedForecast.Split();
+
+            if(MyRandom.Next(10) < 2)
+            {
+                condition = GetRandomWeatherCondition();
+                temperature = RandomTemperature(condition);
+            }
+            else
+            {
+                condition = forecastSplit[0];
+                temperature = MyRandom.Next(-4, 5) + Int32.Parse(forecastSplit[1]);
+            }
+
             this.temperature = temperature;
+            SetBuyChance();
         }
 
-        public void SetRandomTemperature()
+        public int RandomTemperature(string currentCondition)
         {
-            //Random rand = new Random();
-            switch (condition)
+            int temp = 0;
+
+            switch (currentCondition)
             {
                 case ("Sunny"):
-                   // temperature = rand.Next(75, 96);
-                    temperature = MyRandom.Next(75, 96);
+                    temp = MyRandom.Next(75, 96);
                     break;
                 case ("Cloudy"):
-                   // temperature = rand.Next(65, 75);
-                    temperature = MyRandom.Next(65, 75);
+                    temp = MyRandom.Next(65, 75);
                     break;
                 case ("Rainy"):
-                    //temperature = rand.Next(50, 65);
-                    temperature = MyRandom.Next(50, 65);
+                    temp = MyRandom.Next(50, 65);
                     break;
                 case ("Stormy"):
-                    //temperature = rand.Next(45, 61);
-                    temperature = MyRandom.Next(45, 61);
+                    temp = MyRandom.Next(45, 61);
                     break;
                 case ("Snowing"):
-                    //temperature = rand.Next(0, 33);
-                    temperature = MyRandom.Next(0, 33);
+                    temp = MyRandom.Next(0, 33);
                     break;
                 case ("Windy"):
-                    //temperature = rand.Next(40, 75);
-                    temperature = MyRandom.Next(40, 75);
+                    temp = MyRandom.Next(40, 75);
                     break;
                 case ("Icy"):
-                   // temperature = rand.Next(-10, 21);
-                    temperature = MyRandom.Next(-10, 21);
+                    temp = MyRandom.Next(-10, 21);
                     break;
                 default:
                     //Interface.SetTempError
                     break;
             }
+            return temp;
         }
 
         public void SetBuyChance()
@@ -104,8 +112,19 @@ namespace LemondeStandProject
             {
                 buyChance = 70;
             }
+            else if(temperature >= 50 && temperature < 60)
+            {
+                buyChance = 60;
+            }
+            else if (temperature >= 40 && temperature < 50)
+            {
+                buyChance = 50;
+            }
+            else
+            {
+                buyChance = 40;
+            }
 
-            
         }
         
     }

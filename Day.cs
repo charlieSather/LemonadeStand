@@ -19,7 +19,7 @@ namespace LemondeStandProject
 
             for(int i = 0; i < 25; i++)
             {
-                customers.Add(new Customer($"Customer {i}"));
+                customers.Add(new Customer($"Customer {i+ 1}"));
             }
         }
 

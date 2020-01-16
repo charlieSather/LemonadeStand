@@ -53,20 +53,16 @@ namespace LemondeStandProject
         }
         public void SetBuyChance()
         {
-            //Random rand = new Random();
-
             buyChance = MyRandom.Next(30, 101);
-
-            //buyChance = rand.Next(30, 101);
-            //buyChance = rand.Next(101);
         }
-
 
         public int DetermineNumberOfCustomers(Weather weather)
         {
             int numCustomers = 0;
 
-            switch (weather.predictedForecast)
+            string[] splitForecast = weather.predictedForecast.Split();           
+
+            switch (splitForecast[0])
             {
                 case ("Sunny"):
                     numCustomers = 50;
