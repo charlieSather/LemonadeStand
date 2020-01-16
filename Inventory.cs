@@ -61,5 +61,25 @@ namespace LemondeStandProject
         {
 
         }
+
+        public bool CheckInventory(Recipe recipe)
+        {
+            if(lemons.Count < recipe.amountOfLemons)
+            {
+                return false;
+            }
+            if (sugarCubes.Count < recipe.amountOfSugarCubes)
+            {
+                return false;
+            }
+            if (iceCubes.Count < recipe.amountOfIceCubes)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

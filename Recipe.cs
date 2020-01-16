@@ -13,6 +13,7 @@ namespace LemondeStandProject
         public int amountOfSugarCubes;
         public int amountOfIceCubes;
         public double pricePerCup;
+        public int buyChance;
 
         public Recipe(int lemonsIn, int sugarCubesIn, int iceCubesIn, double pricePerCupIn)
         {
@@ -20,6 +21,11 @@ namespace LemondeStandProject
             amountOfSugarCubes = sugarCubesIn;
             amountOfIceCubes = iceCubesIn;
             pricePerCup = pricePerCupIn;
+        }
+
+        public void SetBuyChance()
+        {
+            
         }
     }
 }

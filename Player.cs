@@ -22,8 +22,9 @@ namespace LemondeStandProject
             pitcher = new Pitcher();
         }
 
-        public void SetRecipe(int lemonsIn, int sugarIn, int iceIn, double priceIn)
+        public void SetRecipe()
         {
+            //interface.RepiceSet
             recipe = new Recipe(lemonsIn, sugarIn, iceIn, priceIn);
         }
 
@@ -49,6 +50,10 @@ namespace LemondeStandProject
             }
         }
 
-
+        public void Setup()
+        {
+            Shop();
+            SetRecipe();
+        }
     }
 }
