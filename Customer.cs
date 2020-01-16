@@ -8,5 +8,16 @@ namespace LemondeStandProject
 {
     class Customer
     {
+        public string name { get; set; }
+
+        public Customer(string name)
+        {
+            this.name = name;
+        }
+
+        public Customer()
+        {
+            name = "Customer";
+        }
     }
 }
