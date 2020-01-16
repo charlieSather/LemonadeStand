@@ -58,6 +58,41 @@ namespace LemondeStandProject
             this.temperature = temperature;
             SetBuyChance();
         }
+        public int DetermineNumberOfCustomers()
+        {
+            int numCustomers = 0;
+
+            string[] splitForecast = predictedForecast.Split();
+
+            switch (splitForecast[0])
+            {
+                case ("Sunny"):
+                    numCustomers = 50;
+                    break;
+                case ("Cloudy"):
+                    numCustomers = 40;
+                    break;
+                case ("Rainy"):
+                    numCustomers = 15;
+                    break;
+                case ("Stormy"):
+                    numCustomers = 5;
+                    break;
+                case ("Snowing"):
+                    numCustomers = 5;
+                    break;
+                case ("Windy"):
+                    numCustomers = 20;
+                    break;
+                case ("Icy"):
+                    numCustomers = 10;
+                    break;
+                default:
+                    //INterface couldn't match current weather's condition
+                    break;
+            }
+            return numCustomers;
+        }
 
         public int RandomTemperature(string currentCondition)
         {
