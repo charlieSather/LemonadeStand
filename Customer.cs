@@ -26,13 +26,8 @@ namespace LemondeStandProject
         {
             bool willBuy = false;
 
-            int averageBuyChance = (int) (weather.buyChance * recipe.buyChance * buyChance) / 3;
+            double averageBuyChance = (weather.buyChance + recipe.buyChance + buyChance) / 3;
 
-            //int averageInt = (int) average;
-
-            //call static random 
-
-            //Random number returned has to overcome the averageBuyChance in order to overturn customer's decision to not buy
             if(MyRandom.Next(1, 101) < averageBuyChance)
             {
                 willBuy = true;
@@ -41,16 +36,12 @@ namespace LemondeStandProject
             return willBuy;
         }
 
-        public void BuyLemonade(Player player, double price)
+        public void BuyLemonade(Player player)
         {
-            player.wallet.money += price;
+            Interface.CustomerPurchase(this);
+            player.wallet.money += player.recipe.pricePerCup;
         }
 
-        public void BuyLemonade()
-        {
-            //Interface.BuyLemonade(name)
-            //Interface.ThankPlayer(name)
-        }
         public void SetBuyChance()
         {
             //Random rand = new Random();

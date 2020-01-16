@@ -19,6 +19,7 @@ namespace LemondeStandProject
 
         public Game()
         {
+            week = new List<Day>();
             WeekSetup();
             store = new Store();
         }
@@ -62,7 +63,7 @@ namespace LemondeStandProject
             {
                 if(customer.CheckIfBuy(day.weather, player.recipe))
                 {
-                    customer.BuyLemonade();
+                    customer.BuyLemonade(player);
                 }
                 if(player.inventory.CheckInventory(player.recipe))
                 {
@@ -80,8 +81,8 @@ namespace LemondeStandProject
         public void RunDay(Player player)
         {
             bool dayOver = false;
-            player.SetRecipe();
             store.Shop(player);
+            player.SetRecipe();
             do
             {
                 player.FillNewPitcher();
@@ -92,7 +93,8 @@ namespace LemondeStandProject
                 {
                     dayOver = true;
                 }
-
+                Console.WriteLine(player.wallet.money);
+                Console.ReadLine();
             } while (dayOver);
            
 
@@ -110,6 +112,7 @@ namespace LemondeStandProject
                     RunDay(player2);
                 }
 
+                Console.WriteLine();
                 currentDay++;
             } while (currentDay <= weekLength);
 
