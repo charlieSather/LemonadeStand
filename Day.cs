@@ -29,8 +29,17 @@ namespace LemondeStandProject
                 customers.Add(new Customer($"Customer {i}"));
             }
         }
+        public void SetCustomers2()
+        {
+            int numOfCustomers = weather.DetermineNumberOfCustomers();
 
-    
+            for (int i = 1; i <= numOfCustomers; i++)
+            {
+                customers.Add(new Customer($"Customer {i}"));
+            }
+        }
+
+
 
     }
 }
