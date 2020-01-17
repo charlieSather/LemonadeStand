@@ -57,6 +57,8 @@ namespace LemondeStandProject
                 }
                 Day day = new Day(name);
                 day.weather.SetTodaysWeather();
+                //day.weather.SetRealTimeWeather("Milwaukee");
+
                 week.Add(day);
             }
         }

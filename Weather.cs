@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
     class Weather
     {
-        //Open weather API key: 3b17e245d06ca8548f65bcce526e7b06
+        readonly string API_KEY = "3b17e245d06ca8548f65bcce526e7b06";
 
         public string condition { get; set; }
         public int temperature { get; set; }
@@ -95,7 +99,41 @@ namespace LemondeStandProject
             }
             return numCustomers;
         }
-
+        public async void SetRealTimeWeather(string city)
+        {
+            HttpClient client = new HttpClient();
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
+                condition = weather.weather[0].description;
+                temperature = (int) weather.main.temp;
+            }
+            else
+            {
+                Console.WriteLine("Catastrophic Failure");
+            }          
+        }
+        public async void SetWeeklyRealTimeForeCast(List<Day> week, string city)
+        {
+            //working with weekly forecast requires a paid key
+            //HttpClient client = new HttpClient();
+            //string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
+            //HttpResponseMessage response = await client.GetAsync(url);
+            //string jsonResult = await response.Content.ReadAsStringAsync();
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
+            //    condition = weather.weather[0].description;
+            //    temperature = (int)weather.main.temp;
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Catastrophic Failure");
+            //}
+        }
         public int RandomTemperature(string currentCondition)
         {
             int temp = 0;
