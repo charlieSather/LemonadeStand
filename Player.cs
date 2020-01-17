@@ -21,7 +21,6 @@ namespace LemondeStandProject
             this.name = name;
             inventory = new Inventory();
             wallet = new Wallet(20);
-            pitcher = new Pitcher();
         }
 
         public void SetRecipe()
@@ -45,6 +44,14 @@ namespace LemondeStandProject
             {
                 inventory.iceCubes.RemoveRange(0, recipe.amountOfIceCubes);
             }
+        }
+
+        public void CalculateUsage(int pitchersMade, Store store)
+        {
+            profit -= store.pricePerLemon * pitchersMade * recipe.amountOfLemons;
+            profit -= store.pricePerSugarCube * pitchersMade * recipe.amountOfSugarCubes;
+            profit -= store.pricePerIceCube * pitchersMade * recipe.amountOfIceCubes;
+            profit -= store.pricePerCup * customersServed;
         }
 
     }

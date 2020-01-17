@@ -8,10 +8,10 @@ namespace LemondeStandProject
 {
     class Store
     {
-        double pricePerLemon;
-        double pricePerSugarCube;
-        double pricePerIceCube;
-        double pricePerCup;
+        public double pricePerLemon;
+        public double pricePerSugarCube;
+        public double pricePerIceCube;
+        public double pricePerCup;
 
         public Store()
         {
@@ -63,7 +63,6 @@ namespace LemondeStandProject
                     if (player.wallet.money > BulkLemonPrice(lemonsBought))
                     {
                         player.wallet.SpendMoney(BulkLemonPrice(lemonsBought));
-                        player.profit -= BulkLemonPrice(lemonsBought);
                         player.inventory.AddLemons(lemonsBought);
                     }
                     Shop(player, day);
@@ -73,7 +72,6 @@ namespace LemondeStandProject
                     if (player.wallet.money > BulkSugarPrice(sugarBought))
                     {
                         player.wallet.SpendMoney(BulkSugarPrice(sugarBought));
-                        player.profit -= BulkSugarPrice(sugarBought);
                         player.inventory.AddSugarCubes(sugarBought);
                     }
                     Shop(player, day);
@@ -83,7 +81,6 @@ namespace LemondeStandProject
                     if (player.wallet.money > BulkIcePrice(iceBought))
                     {
                         player.wallet.SpendMoney(BulkIcePrice(iceBought));
-                        player.profit -= BulkIcePrice(iceBought);
                         player.inventory.AddIceCubes(iceBought);
                     }
                     Shop(player, day);
@@ -93,7 +90,6 @@ namespace LemondeStandProject
                     if (player.wallet.money > BulkCupPrice(cupsBought))
                     {
                         player.wallet.SpendMoney(BulkCupPrice(cupsBought));
-                        player.profit -= BulkCupPrice(cupsBought);
                         player.inventory.AddCups(cupsBought);
                     }
                     Shop(player, day);

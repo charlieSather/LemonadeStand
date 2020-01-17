@@ -130,7 +130,7 @@ namespace LemondeStandProject
         {
             Console.WriteLine("End of day!");
             Console.WriteLine($"There were {day.customers.Count} customers today, you served {player.customersServed}");
-            Console.WriteLine($"You have ${player.wallet.money} after ${Math.Round(player.profit, 2)} profit.");
+            Console.WriteLine($"You have ${player.wallet.money} after ${Math.Round(player.profit, 2)} net profit.");
             Console.ReadLine();
         }
 

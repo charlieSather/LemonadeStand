@@ -109,7 +109,7 @@ namespace LemondeStandProject
 
         public void RunDay(Player player, Day day)
         {
-            bool dayOver = false;
+            int pitchersMade = 0;
             store.Shop(player, day);
             player.SetRecipe();
 
@@ -117,30 +117,43 @@ namespace LemondeStandProject
 
             do
             {
+                
                 if (player.inventory.CheckInventory(player.recipe) || day.customersLeft.Count == 0 || player.inventory.cups.Count == 0)
                 {
-                    dayOver = true;
+                    
                     if (player.inventory.CheckInventory(player.recipe))
                     {
                         Interface.NotEnoughIngredients();
+                        break;
                     }
-                    else if (day.customers.Count == 0)
+                    else if (day.customersLeft.Count == 0)
                     {
                         Interface.NoMoreCustomers();
+                        break;
                     }
                     else if(player.inventory.cups.Count == 0)
                     {
                         Interface.NoMoreCups();
+                        break;
                     }
                 }
 
-
-
-                player.FillNewPitcher();
+                if (player.pitcher == null || player.pitcher.cupsLeftInPitcher == 0)
+                {
+                    player.FillNewPitcher();
+                    pitchersMade++;
+                }
+                    
+                
                 ServePitcher(player, week[currentDay]);
-            } while (!dayOver);
 
+                
+
+            } while (true);
+
+            player1.CalculateUsage(pitchersMade, store);
             Interface.EndOfDay(player, day);
+            
         }
         public void RunGame()
         {
@@ -148,7 +161,9 @@ namespace LemondeStandProject
 
             do
             {
+                
                 player1.customersServed = 0;
+                player1.profit = 0;
                 RunDay(player1, week[currentDay]);
 
                 if (players == 2)
@@ -161,6 +176,8 @@ namespace LemondeStandProject
                     Interface.OutOfMoney(player1);
                     return;
                 }
+
+                
 
                 currentDay++;
             } while (currentDay <= weekLength);
