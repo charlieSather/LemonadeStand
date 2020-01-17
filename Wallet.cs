@@ -8,18 +8,26 @@ namespace LemondeStandProject
 {
     class Wallet
     {
-        public double money;
-        double Money;
+        private double money;
+        public double Money
+        {
+            get
+            {
+                return money;
+            }
+            set
+            {
+                money = value;
+            }
+        }
 
         public Wallet(double money)
         {
-            this.money = money;
             Money = money;
         }
 
         public void SpendMoney(double moneySpent)
         {
-            money -= moneySpent;
             Money -= moneySpent;
         }
 
