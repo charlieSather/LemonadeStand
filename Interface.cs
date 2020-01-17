@@ -92,5 +92,20 @@ namespace LemondeStandProject
         {
             Console.WriteLine($"{customer.name} bought your lemonade!");
         }
+
+        public static void PrintWeatherForecast(Weather weather)
+        {
+            Console.WriteLine($"Today's forecast is {weather.predictedForecast} degrees");
+        }
+
+        public static void PrintActualWeather(Weather weather)
+        {
+            Console.WriteLine($"Today's weather {weather.condition} {weather.temperature} degrees");
+        }
+
+        public static void PrintDaysResults()
+        {
+
+        }
     }
 }
