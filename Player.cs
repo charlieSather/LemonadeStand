@@ -31,15 +31,15 @@ namespace LemondeStandProject
         public void FillNewPitcher()
         {
             pitcher = new Pitcher();
-            if (inventory.lemons.Count > recipe.amountOfLemons)
+            if (inventory.lemons.Count >= recipe.amountOfLemons)
             {
                 inventory.lemons.RemoveRange(0, recipe.amountOfLemons);
             }
-            if (inventory.sugarCubes.Count > recipe.amountOfSugarCubes)
+            if (inventory.sugarCubes.Count >= recipe.amountOfSugarCubes)
             {
                 inventory.sugarCubes.RemoveRange(0, recipe.amountOfSugarCubes);
             }
-            if (inventory.iceCubes.Count > recipe.amountOfIceCubes)
+            if (inventory.iceCubes.Count >= recipe.amountOfIceCubes)
             {
                 inventory.iceCubes.RemoveRange(0, recipe.amountOfIceCubes);
             }

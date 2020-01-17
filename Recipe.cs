@@ -21,6 +21,7 @@ namespace LemondeStandProject
             amountOfSugarCubes = sugarCubesIn;
             amountOfIceCubes = iceCubesIn;
             pricePerCup = pricePerCupIn;
+            SetBuyChance();
         }
 
         public void SetBuyChance()
