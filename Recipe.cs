@@ -27,13 +27,13 @@ namespace LemondeStandProject
         public void SetBuyChance()
         {
             double dif = Math.Abs(3 - amountOfLemons);
-            buyChance -= dif * 5;
+            buyChance -= dif * 25;
             dif = Math.Abs(4 - amountOfSugarCubes);
-            buyChance -= dif * 5;
+            buyChance -= dif * 25;
             dif = Math.Abs(5 - amountOfIceCubes);
-            buyChance -= dif * 5;
-            dif = Math.Abs(.25 - pricePerCup);
-            buyChance -= dif * 10;
+            buyChance -= dif * 25;
+            dif = pricePerCup - .25;
+            buyChance -= dif * 100;
         }
     }
 }

@@ -40,13 +40,14 @@ namespace LemondeStandProject
         {
             Interface.CustomerPurchase(this);
             player.wallet.money += player.recipe.pricePerCup;
+            player.profit += player.recipe.pricePerCup;
+            player.pitcher.PourCup(player.inventory);
+            player.customersServed++;
         }
 
         public void SetBuyChance()
         {
-            buyChance = MyRandom.Next(30, 101);
+            buyChance = MyRandom.Next(30, 75);
         }
-
-        
     }
 }

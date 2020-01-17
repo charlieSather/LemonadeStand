@@ -10,21 +10,25 @@ namespace LemondeStandProject
     {
         public Weather weather { get; set; }
         public List<Customer> customers { get; set; }
+        public List<Customer> customersLeft;
+        public string name;
 
-
-        public Day()
+        public Day(string name)
         {
             weather = new Weather();
             customers = new List<Customer>();
+            customersLeft = new List<Customer>();
+            this.name = name;
             SetCustomers();
         }
         public void SetCustomers()
         {
             int numOfCustomers = weather.DetermineNumberOfCustomers();
 
-            for (int i = 1; i <= numOfCustomers; i++)
+            for (int i = numOfCustomers; i >= 1; i--)
             {
                 customers.Add(new Customer($"Customer {i}"));
+                customersLeft.Add(new Customer($"Customer {i}"));
             }
         }
 

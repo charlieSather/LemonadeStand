@@ -28,7 +28,34 @@ namespace LemondeStandProject
         {
             for (int i = 0; i < weekLength; i++)
             {
-                Day day = new Day();
+                string name = "";
+                switch(i)
+                {
+                    case 0:
+                        name = "Monday";
+                        break;
+                    case 1:
+                        name = "Tuesday";
+                        break;
+                    case 2:
+                        name = "Wednesday";
+                        break;
+                    case 3:
+                        name = "Thursday";
+                        break;
+                    case 4:
+                        name = "Friday";
+                        break;
+                    case 5:
+                        name = "Saturday";
+                        break;
+                    case 6:
+                        name = "Sunday";
+                        break;
+                    default:
+                        break;
+                }
+                Day day = new Day(name);
                 day.weather.SetTodaysWeather();
                 week.Add(day);
             }
@@ -58,52 +85,62 @@ namespace LemondeStandProject
             }
         }
 
-        public void WorkDay(Day day, Player player)
+        public void ServePitcher(Player player, Day day)
         {
-            for(int i = day.customers.Count - 1; i >= 0; i--)
+            for (int i = day.customersLeft.Count - 1; i >= 0; i--)
             {
-                if(day.customers[i].CheckIfBuy(day.weather, player.recipe))
-                {
-                    day.customers[i].BuyLemonade(player);
-                    day.customers.RemoveAt(i);
-                }
-                else
-                {
-                    day.customers.RemoveAt(i);
-                }
-                if(player.inventory.CheckInventory(player.recipe))
+                if(player.pitcher.cupsLeftInPitcher == 0 || player.inventory.cups.Count == 0)
                 {
                     break;
                 }
+                if(day.customersLeft[i].CheckIfBuy(day.weather, player.recipe))
+                {
+                    day.customers[i].BuyLemonade(player);
+                    day.customersLeft.RemoveAt(i);
+                }
+                else
+                {
+                    day.customersLeft.RemoveAt(i);
+                }
+                
             }
         }
 
-        public void GameOver(Player player)
-        {
-            Interface.GameOver(player);
 
-        }
-
-        public void RunDay(Player player)
+        public void RunDay(Player player, Day day)
         {
             bool dayOver = false;
-            store.Shop(player);
+            store.Shop(player, day);
             player.SetRecipe();
+
+            Interface.StartDay(day, player);
+
             do
             {
-                player.FillNewPitcher();
-                WorkDay(week[currentDay], player);
-
-
-                if (player.inventory.CheckInventory(player.recipe))
+                if (player.inventory.CheckInventory(player.recipe) || day.customersLeft.Count == 0 || player.inventory.cups.Count == 0)
                 {
                     dayOver = true;
+                    if (player.inventory.CheckInventory(player.recipe))
+                    {
+                        Interface.NotEnoughIngredients();
+                    }
+                    else if (day.customers.Count == 0)
+                    {
+                        Interface.NoMoreCustomers();
+                    }
+                    else if(player.inventory.cups.Count == 0)
+                    {
+                        Interface.NoMoreCups();
+                    }
                 }
-                Console.WriteLine(player.wallet.money);
-                Console.ReadLine();
-            } while (!dayOver);
-           
 
+
+
+                player.FillNewPitcher();
+                ServePitcher(player, week[currentDay]);
+            } while (!dayOver);
+
+            Interface.EndOfDay(player, day);
         }
         public void RunGame()
         {
@@ -111,17 +148,24 @@ namespace LemondeStandProject
 
             do
             {
-                RunDay(player1);
+                player1.customersServed = 0;
+                RunDay(player1, week[currentDay]);
 
                 if (players == 2)
                 {
-                    RunDay(player2);
+                    RunDay(player2, week[currentDay]);
+                }
+
+                if(player1.wallet.money == 0)
+                {
+                    Interface.OutOfMoney(player1);
+                    return;
                 }
 
                 currentDay++;
             } while (currentDay <= weekLength);
 
-            GameOver(player1);
+            Interface.GameOver(player1);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace LemondeStandProject
         public Wallet wallet;
         public Recipe recipe;
         public Pitcher pitcher;
+        public double profit;
+        public int customersServed = 0;
 
         public Player(string name)
         {
@@ -24,7 +26,7 @@ namespace LemondeStandProject
 
         public void SetRecipe()
         {
-            (int, int, int, double) recipe = Interface.GetRecipe();
+            (int, int, int, double) recipe = Interface.GetRecipe(this);
             this.recipe = new Recipe(recipe.Item1, recipe.Item2, recipe.Item3, recipe.Item4);
         }
 

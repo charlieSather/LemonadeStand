@@ -52,9 +52,9 @@ namespace LemondeStandProject
             return pricePerCup* numberOfCups;
         }
 
-        public void Shop(Player player)
+        public void Shop(Player player, Day day)
         {
-            int menuChoice = Interface.ShopMenu(player);
+            int menuChoice = Interface.ShopMenu(player, day);
 
             switch(menuChoice)
             {
@@ -63,36 +63,40 @@ namespace LemondeStandProject
                     if (player.wallet.money > BulkLemonPrice(lemonsBought))
                     {
                         player.wallet.SpendMoney(BulkLemonPrice(lemonsBought));
+                        player.profit -= BulkLemonPrice(lemonsBought);
                         player.inventory.AddLemons(lemonsBought);
                     }
-                    Shop(player);
+                    Shop(player, day);
                     break;
                 case 2:
                     int sugarBought = Interface.BuySugar();
                     if (player.wallet.money > BulkSugarPrice(sugarBought))
                     {
                         player.wallet.SpendMoney(BulkSugarPrice(sugarBought));
+                        player.profit -= BulkSugarPrice(sugarBought);
                         player.inventory.AddSugarCubes(sugarBought);
                     }
-                    Shop(player);
+                    Shop(player, day);
                     break;
                 case 3:
                     int iceBought = Interface.BuyIce();
                     if (player.wallet.money > BulkIcePrice(iceBought))
                     {
                         player.wallet.SpendMoney(BulkIcePrice(iceBought));
+                        player.profit -= BulkIcePrice(iceBought);
                         player.inventory.AddIceCubes(iceBought);
                     }
-                    Shop(player);
+                    Shop(player, day);
                     break;
                 case 4:
                     int cupsBought = Interface.BuyCups();
                     if (player.wallet.money > BulkCupPrice(cupsBought))
                     {
                         player.wallet.SpendMoney(BulkCupPrice(cupsBought));
+                        player.profit -= BulkCupPrice(cupsBought);
                         player.inventory.AddCups(cupsBought);
                     }
-                    Shop(player);
+                    Shop(player, day);
                     break;
                 case 5:
                     break;
