@@ -8,6 +8,8 @@ namespace LemondeStandProject
 {
     class Weather
     {
+        //Open weather API key: 3b17e245d06ca8548f65bcce526e7b06
+
         public string condition { get; set; }
         public int temperature { get; set; }
         List<string> weatherConditions;
