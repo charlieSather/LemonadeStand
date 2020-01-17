@@ -39,7 +39,7 @@ namespace LemondeStandProject
         public void BuyLemonade(Player player)
         {
             Interface.CustomerPurchase(this);
-            player.wallet.money += player.recipe.pricePerCup;
+            player.wallet.Money += player.recipe.pricePerCup;
             player.profit += player.recipe.pricePerCup;
             player.pitcher.PourCup(player.inventory);
             player.customersServed++;

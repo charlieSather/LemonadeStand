@@ -15,7 +15,6 @@ namespace LemondeStandProject
         int currentDay = 0;
         int weekLength = 7;
         int players;
-        
 
         public Game()
         {
@@ -82,6 +81,7 @@ namespace LemondeStandProject
                 //    player1 = new Player(name);
                 //    player2 = new Computer();
                 //    break;
+                
             }
         }
 
@@ -151,7 +151,9 @@ namespace LemondeStandProject
 
             } while (true);
 
-            player1.CalculateUsage(pitchersMade, store);
+
+            player.CalculateUsage(pitchersMade, store);
+            player.pitcher.cupsLeftInPitcher = 0;
             Interface.EndOfDay(player, day);
             
         }
@@ -169,24 +171,28 @@ namespace LemondeStandProject
 
                 if (players == 2)
                 {
-                    Interface.StartTurn(player2);
+                    Interface.StartTurn(player2); 
+                    player2.customersServed = 0;
+                    player2.profit = 0;
+                    week[currentDay].customersLeft.Clear();
+                    week[currentDay].customersLeft.AddRange(week[currentDay].customers);
                     RunDay(player2, week[currentDay]);
                 }
 
-                if(player1.wallet.money == 0)
+                if(player1.wallet.Money == 0)
                 {
                     Interface.OutOfMoney(player1);
                     return;
                 }
 
-                if (players == 2 && player2.wallet.money == 0)
+                if (players == 2 && player2.wallet.Money == 0)
                 {
                     Interface.OutOfMoney(player2);
                     return;
                 }
 
                 currentDay++;
-            } while (currentDay <= weekLength);
+            } while (currentDay < weekLength);
 
             if(players == 1)
             {
@@ -200,13 +206,13 @@ namespace LemondeStandProject
 
         public void CheckWinner()
         {
-            if(player1.wallet.money > player2.wallet.money)
+            if(player1.wallet.Money > player2.wallet.Money)
             {
-                Interface.GameOver(player1);
+                Interface.GameOver(player1, player2);
             }
             else
             {
-                Interface.GameOver(player2);
+                Interface.GameOver(player2, player1);
             }
         }
     }
