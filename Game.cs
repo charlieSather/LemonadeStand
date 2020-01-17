@@ -64,11 +64,11 @@ namespace LemondeStandProject
         public void CheckPlayers()
         {
             players = Interface.GetPlayers();
-
+            string name;
             switch(players)
             {
                 case 1:
-                    string name = Interface.GetName(1);
+                    name = Interface.GetName(1);
                     player1 = new Player(name);
                     break;
                 case 2:
@@ -161,6 +161,7 @@ namespace LemondeStandProject
 
             do
             {
+                if(players == 2) { Interface.StartTurn(player1); }
                 
                 player1.customersServed = 0;
                 player1.profit = 0;
@@ -168,6 +169,7 @@ namespace LemondeStandProject
 
                 if (players == 2)
                 {
+                    Interface.StartTurn(player2);
                     RunDay(player2, week[currentDay]);
                 }
 
@@ -177,12 +179,35 @@ namespace LemondeStandProject
                     return;
                 }
 
-                
+                if (players == 2 && player2.wallet.money == 0)
+                {
+                    Interface.OutOfMoney(player2);
+                    return;
+                }
 
                 currentDay++;
             } while (currentDay <= weekLength);
 
-            Interface.GameOver(player1);
+            if(players == 1)
+            {
+                Interface.GameOver(player1);
+            }
+            else if(players == 2)
+            {
+                CheckWinner();
+            }
+        }
+
+        public void CheckWinner()
+        {
+            if(player1.wallet.money > player2.wallet.money)
+            {
+                Interface.GameOver(player1);
+            }
+            else
+            {
+                Interface.GameOver(player2);
+            }
         }
     }
 }

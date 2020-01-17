@@ -47,6 +47,12 @@ namespace LemondeStandProject
             Console.WriteLine($"For a net gain of ${player.profit}.");
         }
 
+        public static void GameOver(Player player1, Player player2)
+        {
+            Console.WriteLine($"{player1.name} ended the game with: ${player1.wallet.money}");
+            Console.WriteLine($"{player2.name} ended the game with: ${player2.wallet.money}");
+        }
+
         public static int BuyLemons()
         {
             Console.WriteLine("How many lemons would you like to buy?");
@@ -137,6 +143,14 @@ namespace LemondeStandProject
         public static void OutOfMoney(Player player)
         {
             Console.WriteLine($"Sorry {player.name}, you're out of money!");
+        }
+
+        public static void StartTurn(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine($"{player.name}'s turn!");
+            Console.WriteLine("Press enter to start!");
+            Console.ReadLine();
         }
     }
 }
