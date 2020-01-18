@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
@@ -99,23 +98,23 @@ namespace LemondeStandProject
             }
             return numCustomers;
         }
-        public async void SetRealTimeWeather(string city)
-        {
-            HttpClient client = new HttpClient();
-            string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
-            HttpResponseMessage response = await client.GetAsync(url);
-            string jsonResult = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
-                condition = weather.weather[0].description;
-                temperature = (int) weather.main.temp;
-            }
-            else
-            {
-                Console.WriteLine("Catastrophic Failure");
-            }          
-        }
+        //public async void SetRealTimeWeather(string city)
+        //{
+        //    HttpClient client = new HttpClient();
+        //    string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
+        //    HttpResponseMessage response = await client.GetAsync(url);
+        //    string jsonResult = await response.Content.ReadAsStringAsync();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
+        //        condition = weather.weather[0].description;
+        //        temperature = (int) weather.main.temp;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Catastrophic Failure");
+        //    }          
+        //}
         public async void SetWeeklyRealTimeForeCast(List<Day> week, string city)
         {
             //working with weekly forecast requires a paid key
