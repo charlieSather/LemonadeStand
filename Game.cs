@@ -34,7 +34,7 @@ namespace LemondeStandProject
             for (int i = 0; i < weekLength; i++)
             {
                 string name = "";
-                switch(i)
+                switch (i)
                 {
                     case 0:
                         name = "Monday";
@@ -61,9 +61,14 @@ namespace LemondeStandProject
                         break;
                 }
                 Day day = new Day(name);
-                if(name == "Monday" && apiChoice == 1)
+                if (name == "Monday" && apiChoice == 1)
                 {
                     day.weather.SetRealTimeWeather("Milwaukee");
+                }
+                if (name == "Monday")
+                {
+                    day.weather.SetRealTimeWeather("Milwaukee");
+                    day.SetCustomers();
                 }
                 else
                 {
@@ -71,7 +76,7 @@ namespace LemondeStandProject
                 }
                 week.Add(day);
             }
-            if(apiChoice == 1)
+            if (apiChoice == 1)
             {
                 SetWeeklyRealTimeForeCast("Milwaukee", week);
             }
@@ -88,16 +93,16 @@ namespace LemondeStandProject
                 Forecast.Forecast forecast = JsonConvert.DeserializeObject<Forecast.Forecast>(jsonResult);
                 int threeHourIncrement = 0;
 
-               for(int i = 0;  i < week.Count - 1; i++)
+                for (int i = 0; i < week.Count - 1; i++)
                 {
-                    if(i == 0)
+                    if (i == 0)
                     {
                         week[i].weather.SetRealWeatherForcast();
                         week[i].SetRealCustomers();
                     }
                     else
                     {
-                        week[i].weather.SetWeatherForecast(forecast.list[threeHourIncrement].weather[0].description, (int) forecast.list[i].main.temp);
+                        week[i].weather.SetWeatherForecast(forecast.list[threeHourIncrement].weather[0].description, (int)forecast.list[i].main.temp);
                         week[i].SetRealCustomers();
                         week[i].weather.SetTodaysWeather();
                         threeHourIncrement += 8;
@@ -113,24 +118,26 @@ namespace LemondeStandProject
         {
             players = Interface.GetPlayers();
             string name;
-            switch(players)
+            switch (players)
             {
+                case 0:
+                    player1 = new Computer();
+                    break;
                 case 1:
                     name = Interface.GetName(1);
-                    player1 = new Player(name);
+                    player1 = new Human(name);
                     break;
                 case 2:
                     name = Interface.GetName(1);
-                    player1 = new Player(name);
+                    player1 = new Human(name);
                     name = Interface.GetName(2);
-                    player2 = new Player(name);
+                    player2 = new Human(name);
                     break;
-                //case 3:
-                //    name = Interface.GetName(1);
-                //    player1 = new Player(name);
-                //    player2 = new Computer();
-                //    break;
-                
+                case 3:
+                    name = Interface.GetName(1);
+                    player1 = new Human(name);
+                    player2 = new Computer();
+                    break;
             }
         }
 
@@ -138,11 +145,11 @@ namespace LemondeStandProject
         {
             for (int i = day.customersLeft.Count - 1; i >= 0; i--)
             {
-                if(player.pitcher.cupsLeftInPitcher == 0 || player.inventory.cups.Count == 0)
+                if (player.pitcher.cupsLeftInPitcher == 0 || player.inventory.cups.Count == 0)
                 {
                     break;
                 }
-                if(day.customersLeft[i].CheckIfBuy(day.weather, player.recipe))
+                if (day.customersLeft[i].CheckIfBuy(day.weather, player.recipe))
                 {
                     day.customers[i].BuyLemonade(player);
                     day.customersLeft.RemoveAt(i);
@@ -151,7 +158,7 @@ namespace LemondeStandProject
                 {
                     day.customersLeft.RemoveAt(i);
                 }
-                
+
             }
         }
 
@@ -162,25 +169,26 @@ namespace LemondeStandProject
             store.Shop(player, day);
             player.SetRecipe();
 
+
             Interface.StartDay(day, player);
 
             do
             {
-                
+
                 if (player.inventory.CheckInventory(player.recipe) || day.customersLeft.Count == 0 || player.inventory.cups.Count == 0)
                 {
-                    
-                    if (player.inventory.CheckInventory(player.recipe))
-                    {
-                        Interface.NotEnoughIngredients();
-                        break;
-                    }
-                    else if (day.customersLeft.Count == 0)
+
+                    if (day.customersLeft.Count == 0)
                     {
                         Interface.NoMoreCustomers();
                         break;
                     }
-                    else if(player.inventory.cups.Count == 0)
+                    else if (player.inventory.CheckInventory(player.recipe))
+                    {
+                        Interface.NotEnoughIngredients();
+                        break;
+                    }
+                    else if (player.inventory.cups.Count == 0)
                     {
                         Interface.NoMoreCups();
                         break;
@@ -192,23 +200,23 @@ namespace LemondeStandProject
                     player.FillNewPitcher();
                     pitchersMade++;
                 }
-                    
-                
+
+
                 ServePitcher(player, week[currentDay]);
 
-                
+
 
             } while (true);
 
 
             player.CalculateUsage(pitchersMade, store);
-            if(player.pitcher != null)
+            if (player.pitcher != null)
             {
                 player.pitcher.cupsLeftInPitcher = 0;
             }
             player.inventory.InventoryCheck(day.weather);
             Interface.EndOfDay(player, day);
-            
+
         }
         public void RunGame()
         {
@@ -216,15 +224,15 @@ namespace LemondeStandProject
 
             do
             {
-                if(players == 2) { Interface.StartTurn(player1); }
-                
+                if (players > 1) { Interface.StartTurn(player1); }
+
                 player1.customersServed = 0;
                 player1.profit = 0;
                 RunDay(player1, week[currentDay]);
 
-                if (players == 2)
+                if (players > 1)
                 {
-                    Interface.StartTurn(player2); 
+                    Interface.StartTurn(player2);
                     player2.customersServed = 0;
                     player2.profit = 0;
                     week[currentDay].customersLeft.Clear();
@@ -232,26 +240,33 @@ namespace LemondeStandProject
                     RunDay(player2, week[currentDay]);
                 }
 
-                if(player1.wallet.Money == 0)
+                if (player1.wallet.Money == 0)
                 {
                     Interface.OutOfMoney(player1);
                     return;
                 }
 
-                if (players == 2 && player2.wallet.Money == 0)
+                if (players > 1 && player2.wallet.Money == 0)
                 {
                     Interface.OutOfMoney(player2);
+                    Interface.GameOver(player1, player2);
+                    return;
+                }
+                else if (players > 1 && player1.wallet.Money == 0)
+                {
+                    Interface.OutOfMoney(player1);
+                    Interface.GameOver(player2, player1);
                     return;
                 }
 
                 currentDay++;
             } while (currentDay < weekLength);
 
-            if(players == 1)
+            if (players == 1)
             {
                 Interface.GameOver(player1);
             }
-            else if(players == 2)
+            else if (players > 1)
             {
                 CheckWinner();
             }
@@ -259,7 +274,7 @@ namespace LemondeStandProject
 
         public void CheckWinner()
         {
-            if(player1.wallet.Money > player2.wallet.Money)
+            if (player1.wallet.Money > player2.wallet.Money)
             {
                 Interface.GameOver(player1, player2);
             }

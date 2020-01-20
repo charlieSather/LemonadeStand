@@ -17,7 +17,7 @@ namespace LemondeStandProject
         public int temperature { get; set; }
         List<string> weatherConditions;
         public string predictedForecast { get; set; }
-        public int buyChance { get;  set; }
+        public int buyChance { get; set; }
 
         public Weather()
         {
@@ -33,7 +33,7 @@ namespace LemondeStandProject
             };
             SetWeatherForcast();
         }
-        
+
         public void SetWeatherForcast()
         {
             string randCondition = GetRandomWeatherCondition();
@@ -54,17 +54,17 @@ namespace LemondeStandProject
             string[] forecastSplit = predictedForecast.Split();
 
             string cond = "";
-            for(int i = 0; i < forecastSplit.Length - 1; i++)
+            for (int i = 0; i < forecastSplit.Length - 1; i++)
             {
                 cond += forecastSplit[i];
-                if(i != forecastSplit.Length - 2)
+                if (i != forecastSplit.Length - 2)
                 {
                     cond += " ";
                 }
             }
 
 
-            if(MyRandom.Next(10) < 2)
+            if (MyRandom.Next(10) < 2)
             {
                 condition = GetRandomWeatherCondition();
                 temperature = RandomTemperature(condition);
@@ -107,13 +107,13 @@ namespace LemondeStandProject
                     numCustomers = 10;
                     break;
                 default:
-                    //INterface couldn't match current weather's condition
+                    numCustomers = 20;
                     break;
             }
             return numCustomers;
         }
         public int DetermineRealNumberOfCustomers()
-        {            
+        {
             string[] splitForecast = predictedForecast.Split();
 
             int numCustomers = Int32.Parse(splitForecast[splitForecast.Length - 1]);
@@ -144,7 +144,7 @@ namespace LemondeStandProject
         {
             predictedForecast = condition + " " + (temperature + MyRandom.Next(-10, 11));
         }
-       
+
         public int RandomTemperature(string currentCondition)
         {
             int temp = 0;
@@ -173,7 +173,6 @@ namespace LemondeStandProject
                     temp = MyRandom.Next(-10, 21);
                     break;
                 default:
-                    //Interface.SetTempError
                     break;
             }
             return temp;
@@ -182,11 +181,11 @@ namespace LemondeStandProject
         public void SetBuyChance()
         {
 
-            if(temperature >= 90)
+            if (temperature >= 90)
             {
                 buyChance = 100;
             }
-            else if(temperature >= 80 && temperature < 90)
+            else if (temperature >= 80 && temperature < 90)
             {
                 buyChance = 90;
             }
@@ -194,11 +193,11 @@ namespace LemondeStandProject
             {
                 buyChance = 80;
             }
-            else if(temperature >= 60 && temperature < 70)
+            else if (temperature >= 60 && temperature < 70)
             {
                 buyChance = 70;
             }
-            else if(temperature >= 50 && temperature < 60)
+            else if (temperature >= 50 && temperature < 60)
             {
                 buyChance = 60;
             }
@@ -212,6 +211,6 @@ namespace LemondeStandProject
             }
 
         }
-       
+
     }
 }
