@@ -8,6 +8,9 @@ namespace LemondeStandProject
 {
     class Computer : Player
     {
+        //We used the Liskov Substitution principle when creating our Human and Computer class.
+        //Both are children of the Player class and are used in the exact same way and for the same 
+        //purpose our Player class was being used for previously.
 
         private int perfectLemons = 3;
         private int perfectSugar = 4;

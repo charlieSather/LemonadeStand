@@ -26,6 +26,9 @@ namespace LemondeStandProject
             Money = money;
         }
 
+        //The SpendMoney method follows the single use principle because
+        //it is only used to remove the amount of money spent from the
+        //money in your wallet.
         public void SpendMoney(double moneySpent)
         {
             Money -= moneySpent;

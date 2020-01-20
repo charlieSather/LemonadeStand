@@ -25,8 +25,13 @@ namespace LemondeStandProject
 
         public abstract void SetRecipe();
 
+        //The FillNewPitcher method follows the single use principle because
+        //as a function it is only used for a single task which is 
+        //removing the ingredients give by your recipe from your inventory
+        //to "create a new full pitcher object".
         public void FillNewPitcher()
         {
+
             pitcher = new Pitcher();
             if (inventory.lemons.Count >= recipe.amountOfLemons)
             {
@@ -42,6 +47,10 @@ namespace LemondeStandProject
             }
         }
 
+        //The CalculateUsage method follows the single use principle beacause
+        //as a function it only performs a single taskm which is
+        //decrementing your daily profit based on the price of the 
+        //ingredients you used that day.
         public void CalculateUsage(int pitchersMade, Store store)
         {
             profit -= store.pricePerLemon * pitchersMade * recipe.amountOfLemons;
