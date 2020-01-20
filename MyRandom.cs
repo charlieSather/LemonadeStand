@@ -19,6 +19,5 @@ namespace LemondeStandProject
         { 
             return rand.Next(minValue, maxValue); 
         }
-
     }
 }

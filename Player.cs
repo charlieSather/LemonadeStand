@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Player
+    abstract class Player
     {
         public string name;
         public Inventory inventory;
@@ -16,18 +16,14 @@ namespace LemondeStandProject
         public double profit;
         public int customersServed = 0;
 
-        public Player(string name)
+        public Player()
         {
-            this.name = name;
+            
             inventory = new Inventory();
             wallet = new Wallet(20);
         }
 
-        public void SetRecipe()
-        {
-            (int, int, int, double) recipe = Interface.GetRecipe(this);
-            this.recipe = new Recipe(recipe.Item1, recipe.Item2, recipe.Item3, recipe.Item4);
-        }
+        public abstract void SetRecipe();
 
         public void FillNewPitcher()
         {
@@ -54,5 +50,6 @@ namespace LemondeStandProject
             profit -= store.pricePerCup * customersServed;
         }
 
+        public abstract void GoShopping(Store store, Day day);
     }
 }

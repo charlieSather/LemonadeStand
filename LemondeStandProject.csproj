@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Computer.cs" />
     <Compile Include="Cup.cs" />
     <Compile Include="CurrentWeather.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Forecast.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Human.cs" />
     <Compile Include="IceCube.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Inventory.cs" />
