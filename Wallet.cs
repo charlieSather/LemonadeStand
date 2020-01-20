@@ -31,16 +31,5 @@ namespace LemondeStandProject
             Money -= moneySpent;
         }
 
-        public bool CheckMoney(double cost)
-        {
-            if (cost > money)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
     }
 }

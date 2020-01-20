@@ -21,12 +21,6 @@ namespace LemondeStandProject
             pricePerCup = 0.02;
         }
 
-        public void RandomizePrices()
-        {
-
-
-        }
-
         public void SetPrices(double lemonPrice, double sugarCubePrice, double iceCubePrice, double cupPrice)
         {
             pricePerLemon = lemonPrice;
@@ -54,49 +48,7 @@ namespace LemondeStandProject
 
         public void Shop(Player player, Day day)
         {
-            int menuChoice = Interface.ShopMenu(player, day);
-
-            switch(menuChoice)
-            {
-                case 1:
-                    int lemonsBought = Interface.BuyLemons();
-                    if (player.wallet.Money > BulkLemonPrice(lemonsBought))
-                    {
-                        player.wallet.SpendMoney(BulkLemonPrice(lemonsBought));
-                        player.inventory.AddLemons(lemonsBought);
-                    }
-                    Shop(player, day);
-                    break;
-                case 2:
-                    int sugarBought = Interface.BuySugar();
-                    if (player.wallet.Money > BulkSugarPrice(sugarBought))
-                    {
-                        player.wallet.SpendMoney(BulkSugarPrice(sugarBought));
-                        player.inventory.AddSugarCubes(sugarBought);
-                    }
-                    Shop(player, day);
-                    break;
-                case 3:
-                    int iceBought = Interface.BuyIce();
-                    if (player.wallet.Money > BulkIcePrice(iceBought))
-                    {
-                        player.wallet.SpendMoney(BulkIcePrice(iceBought));
-                        player.inventory.AddIceCubes(iceBought);
-                    }
-                    Shop(player, day);
-                    break;
-                case 4:
-                    int cupsBought = Interface.BuyCups();
-                    if (player.wallet.Money > BulkCupPrice(cupsBought))
-                    {
-                        player.wallet.SpendMoney(BulkCupPrice(cupsBought));
-                        player.inventory.AddCups(cupsBought);
-                    }
-                    Shop(player, day);
-                    break;
-                case 5:
-                    break;
-            }
+            player.GoShopping(this, day);
         }
     }
 }

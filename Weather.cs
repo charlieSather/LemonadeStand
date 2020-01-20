@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
@@ -31,6 +32,7 @@ namespace LemondeStandProject
                 "Windy",
                 "Icy",
             };
+
             SetWeatherForeast();
         }
         
@@ -93,45 +95,29 @@ namespace LemondeStandProject
                     numCustomers = 10;
                     break;
                 default:
-                    //INterface couldn't match current weather's condition
+                    numCustomers = 20;
                     break;
             }
+
             return numCustomers;
         }
-        //public async void SetRealTimeWeather(string city)
-        //{
-        //    HttpClient client = new HttpClient();
-        //    string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
-        //    HttpResponseMessage response = await client.GetAsync(url);
-        //    string jsonResult = await response.Content.ReadAsStringAsync();
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
-        //        condition = weather.weather[0].description;
-        //        temperature = (int) weather.main.temp;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Catastrophic Failure");
-        //    }          
-        //}
-        public async void SetWeeklyRealTimeForeCast(List<Day> week, string city)
+        public async void SetRealTimeWeather(string city)
         {
-            //working with weekly forecast requires a paid key
-            //HttpClient client = new HttpClient();
-            //string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
-            //HttpResponseMessage response = await client.GetAsync(url);
-            //string jsonResult = await response.Content.ReadAsStringAsync();
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
-            //    condition = weather.weather[0].description;
-            //    temperature = (int)weather.main.temp;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Catastrophic Failure");
-            //}
+            HttpClient client = new HttpClient();
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
+                condition = weather.weather[0].description;
+                temperature = (int)weather.main.temp;
+            }
+            else
+            {
+                Console.WriteLine("Catastrophic Failure");
+            }
+            predictedForecast = condition + " " + temperature;
         }
         public int RandomTemperature(string currentCondition)
         {
@@ -161,7 +147,6 @@ namespace LemondeStandProject
                     temp = MyRandom.Next(-10, 21);
                     break;
                 default:
-                    //Interface.SetTempError
                     break;
             }
             return temp;

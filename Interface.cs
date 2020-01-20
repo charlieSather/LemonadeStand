@@ -9,7 +9,7 @@ namespace LemondeStandProject
 {
     static class Interface
     {
-        static Regex playerInput = new Regex(@"^[1-3]$");
+        static Regex playerInput = new Regex(@"^[0-3]$");
         static Regex menuInput = new Regex(@"^[1-5]$");
         static Regex purchaseInput = new Regex(@"^\d{1,2}$");
         static Regex decimalPurchaseInput = new Regex(@"^0?\.?\d{1,2}$");
@@ -79,23 +79,26 @@ namespace LemondeStandProject
 
         public static int GetPlayers()
         {
-            Console.WriteLine("How many players are there?");
+            Console.WriteLine("Who's playing?");
+            Console.WriteLine("1: Singe Player");
+            Console.WriteLine("2: Two Player");
+            Console.WriteLine("3: Player vs. Computer");
             return IntInputCheck(playerInput);
         }
 
         public static void GameOver(Player player)
         {
             Console.Clear();
-            Console.WriteLine($"{player.name} ended the game with: ${player.wallet.Money}");
-            Console.WriteLine($"For a net gain of ${player.wallet.Money - 20}.");
+            Console.WriteLine($"{player.name} ended the game with: ${Math.Round(player.wallet.Money, 2)}");
+            Console.WriteLine($"For a net gain of ${Math.Round(player.wallet.Money, 2) - 20}.");
             Console.ReadLine();
         }
 
         public static void GameOver(Player winner, Player second)
         {
             Console.Clear();
-            Console.WriteLine($"{winner.name} ended the game with: ${winner.wallet.Money}");
-            Console.WriteLine($"{second.name} ended the game with: ${second.wallet.Money}");
+            Console.WriteLine($"{winner.name} ended the game with: ${Math.Round(winner.wallet.Money, 2)}");
+            Console.WriteLine($"{second.name} ended the game with: ${Math.Round(second.wallet.Money, 2)}");
             Console.WriteLine($"{winner.name} wins!");
             Console.ReadLine();
         }
@@ -133,7 +136,7 @@ namespace LemondeStandProject
             Console.WriteLine($"Today's forecast: {day.weather.predictedForecast}\x00B0\n");
 
 
-            Console.WriteLine($"What would you like to buy? You have ${player.wallet.Money}.");
+            Console.WriteLine($"What would you like to buy? You have ${Math.Round(player.wallet.Money, 2)}.");
             Console.WriteLine("1: Lemons($.05)");
             Console.WriteLine("2: Sugar Cubes($.02)");
             Console.WriteLine("3: Ice Cubes($.01)");
@@ -169,7 +172,7 @@ namespace LemondeStandProject
             Console.Clear();
             Console.WriteLine($"{day.name}");
             Console.WriteLine($"The weather today is {day.weather.temperature}\x00B0 and {day.weather.condition}");
-            Console.WriteLine($"You're starting with ${player.wallet.Money}");
+            Console.WriteLine($"You're starting with ${Math.Round(player.wallet.Money, 2)}");
             Console.WriteLine("Press enter to start day!");
             Console.ReadLine();
         }
@@ -177,7 +180,7 @@ namespace LemondeStandProject
         {
             Console.WriteLine("End of day!");
             Console.WriteLine($"There were {day.customers.Count} customers today, you served {player.customersServed}");
-            Console.WriteLine($"You have ${player.wallet.Money} after ${Math.Round(player.profit, 2)} net profit.");
+            Console.WriteLine($"You have ${Math.Round(player.wallet.Money, 2)} after ${Math.Round(player.profit, 2)} net profit.");
             Console.ReadLine();
         }
 
@@ -205,6 +208,11 @@ namespace LemondeStandProject
                     Console.WriteLine("Moderate weather conditions has melted half of your ice");
                     break;
             }
+        }
+
+        public static void ComputerPurchase(string item, int bought, string name)
+        {
+            Console.WriteLine($"{name} bought {bought} {item}(s)");
         }
     }
 }
