@@ -12,7 +12,7 @@ namespace LemondeStandProject
         static Regex playerInput = new Regex(@"^[1-3]$");
         static Regex menuInput = new Regex(@"^[1-5]$");
         static Regex purchaseInput = new Regex(@"^\d{1,2}$");
-        static Regex decimalPurchaseInput = new Regex(@"^\.\d{1,2}$");
+        static Regex decimalPurchaseInput = new Regex(@"^0?\.?\d{1,2}$");
 
         public static int IntInputCheck(Regex format)
         {
@@ -192,6 +192,19 @@ namespace LemondeStandProject
             Console.WriteLine($"{player.name}'s turn!");
             Console.WriteLine("Press enter to start!");
             Console.ReadLine();
+        }
+        public static void IceMelted(int option)
+        {
+            switch (option)
+            {
+                case 1:
+                    Console.WriteLine("Oh no! Extreme heat has melted all of your Ice!!");
+                    Console.WriteLine("Where's your Yeti cooler?");
+                    break;
+                case 2:
+                    Console.WriteLine("Moderate weather conditions has melted half of your ice");
+                    break;
+            }
         }
     }
 }

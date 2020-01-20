@@ -81,5 +81,18 @@ namespace LemondeStandProject
                 return false;
             }
         }
+        public void CheckIfIceMelted(Weather weather)
+        {
+            if(weather.temperature > 70 && iceCubes.Count > 0)
+            {
+                Interface.IceMelted(1);
+                iceCubes.Clear();
+            }
+            else if(weather.temperature > 50 && weather.temperature < 70 && iceCubes.Count > 0)
+            {
+                iceCubes.RemoveRange(0, iceCubes.Count / 2);
+                Interface.IceMelted(2);
+            }
+        }
     }
 }

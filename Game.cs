@@ -155,7 +155,11 @@ namespace LemondeStandProject
 
 
             player.CalculateUsage(pitchersMade, store);
-            player.pitcher.cupsLeftInPitcher = 0;
+            if(player.pitcher != null)
+            {
+                player.pitcher.cupsLeftInPitcher = 0;
+            }
+            player.inventory.CheckIfIceMelted(day.weather);
             Interface.EndOfDay(player, day);
             
         }
