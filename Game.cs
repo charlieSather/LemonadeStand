@@ -64,12 +64,7 @@ namespace LemondeStandProject
                 if (name == "Monday" && apiChoice == 1)
                 {
                     day.weather.SetRealTimeWeather("Milwaukee");
-                }
-                if (name == "Monday")
-                {
-                    day.weather.SetRealTimeWeather("Milwaukee");
-                    day.SetCustomers();
-                }
+                }                
                 else
                 {
                     day.weather.SetTodaysWeather();
