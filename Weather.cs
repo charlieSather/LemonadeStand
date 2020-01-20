@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
@@ -31,13 +31,17 @@ namespace LemondeStandProject
                 "Windy",
                 "Icy",
             };
-            SetWeatherForeast();
+            SetWeatherForcast();
         }
         
-        public void SetWeatherForeast()
+        public void SetWeatherForcast()
         {
             string randCondition = GetRandomWeatherCondition();
             predictedForecast = "" + randCondition + " " + RandomTemperature(randCondition);
+        }
+        public void SetWeatherForecast(string forecast, int temp)
+        {
+            predictedForecast = "" + forecast + " " + temp;
         }
 
         public string GetRandomWeatherCondition()
@@ -49,6 +53,17 @@ namespace LemondeStandProject
         {
             string[] forecastSplit = predictedForecast.Split();
 
+            string cond = "";
+            for(int i = 0; i < forecastSplit.Length - 1; i++)
+            {
+                cond += forecastSplit[i];
+                if(i != forecastSplit.Length - 2)
+                {
+                    cond += " ";
+                }
+            }
+
+
             if(MyRandom.Next(10) < 2)
             {
                 condition = GetRandomWeatherCondition();
@@ -56,11 +71,10 @@ namespace LemondeStandProject
             }
             else
             {
-                condition = forecastSplit[0];
-                temperature = MyRandom.Next(-5, 5) + Int32.Parse(forecastSplit[1]);
+                condition = cond;
+                temperature = MyRandom.Next(-5, 6) + Int32.Parse(forecastSplit[forecastSplit.Length - 1]);
             }
 
-            this.temperature = temperature;
             SetBuyChance();
         }
         public int DetermineNumberOfCustomers()
@@ -98,41 +112,39 @@ namespace LemondeStandProject
             }
             return numCustomers;
         }
-        //public async void SetRealTimeWeather(string city)
-        //{
-        //    HttpClient client = new HttpClient();
-        //    string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
-        //    HttpResponseMessage response = await client.GetAsync(url);
-        //    string jsonResult = await response.Content.ReadAsStringAsync();
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
-        //        condition = weather.weather[0].description;
-        //        temperature = (int) weather.main.temp;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Catastrophic Failure");
-        //    }          
-        //}
-        public async void SetWeeklyRealTimeForeCast(List<Day> week, string city)
-        {
-            //working with weekly forecast requires a paid key
-            //HttpClient client = new HttpClient();
-            //string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
-            //HttpResponseMessage response = await client.GetAsync(url);
-            //string jsonResult = await response.Content.ReadAsStringAsync();
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
-            //    condition = weather.weather[0].description;
-            //    temperature = (int)weather.main.temp;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Catastrophic Failure");
-            //}
+        public int DetermineRealNumberOfCustomers()
+        {            
+            string[] splitForecast = predictedForecast.Split();
+
+            int numCustomers = Int32.Parse(splitForecast[splitForecast.Length - 1]);
+            int upper = numCustomers / 2;
+            int lower = upper - (2 * upper);
+
+            return numCustomers + MyRandom.Next(lower, upper + 1);
         }
+
+        public async void SetRealTimeWeather(string city)
+        {
+            HttpClient client = new HttpClient();
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}&units=imperial";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                CurrentWeather weather = JsonConvert.DeserializeObject<CurrentWeather>(jsonResult);
+                condition = weather.weather[0].description;
+                temperature = (int)weather.main.temp;
+            }
+            else
+            {
+                Console.WriteLine("Catastrophic Failure");
+            }
+        }
+        public void SetRealWeatherForcast()
+        {
+            predictedForecast = condition + " " + (temperature + MyRandom.Next(-10, 11));
+        }
+       
         public int RandomTemperature(string currentCondition)
         {
             int temp = 0;
@@ -200,6 +212,6 @@ namespace LemondeStandProject
             }
 
         }
-        
+       
     }
 }

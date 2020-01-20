@@ -94,5 +94,34 @@ namespace LemondeStandProject
                 Interface.IceMelted(2);
             }
         }
+
+        public void UpdateLemons()
+        {
+            List<Lemon> newLemons = new List<Lemon>();
+
+            foreach(Lemon lemon in lemons)
+            {
+                lemon.DecrementShelfLife();
+
+                if (!lemon.Expired())
+                {
+                    newLemons.Add(lemon);
+                }
+            }
+
+            int lemonsLost = lemons.Count - newLemons.Count;
+            if(lemonsLost > 1)
+            {
+                Interface.LemonsLost(lemonsLost);
+            }
+
+            lemons.Clear();
+            lemons.AddRange(newLemons);
+        }
+        public void InventoryCheck(Weather weather)
+        {
+            CheckIfIceMelted(weather);
+            UpdateLemons();
+        }
     }
 }

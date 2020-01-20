@@ -10,9 +10,10 @@ namespace LemondeStandProject
     static class Interface
     {
         static Regex playerInput = new Regex(@"^[1-3]$");
+        static Regex apiChoice = new Regex(@"^[1-2]$");
         static Regex menuInput = new Regex(@"^[1-5]$");
         static Regex purchaseInput = new Regex(@"^\d{1,2}$");
-        static Regex decimalPurchaseInput = new Regex(@"^0?\.?\d{1,2}$");
+        static Regex decimalPurchaseInput = new Regex(@"^[0-1]?\.?\d{1,2}$");
 
         public static int IntInputCheck(Regex format)
         {
@@ -79,6 +80,7 @@ namespace LemondeStandProject
 
         public static int GetPlayers()
         {
+            Console.Clear();
             Console.WriteLine("How many players are there?");
             return IntInputCheck(playerInput);
         }
@@ -205,6 +207,19 @@ namespace LemondeStandProject
                     Console.WriteLine("Moderate weather conditions has melted half of your ice");
                     break;
             }
+        }
+        public static int PromptUserRealTimeWeatherSystem()
+        {
+            Console.WriteLine("Do you want to use the real time weather system");
+            Console.WriteLine("\n1: Yes\n2: No");
+
+
+            return IntInputCheck(apiChoice);
+        }  
+        
+        public static void LemonsLost(int amountLost)
+        {
+            Console.WriteLine($"{amountLost} lemons expired!");
         }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
@@ -15,6 +18,7 @@ namespace LemondeStandProject
         int currentDay = 0;
         int weekLength = 7;
         int players;
+        readonly string API_KEY = "3b17e245d06ca8548f65bcce526e7b06";
 
         public Game()
         {
@@ -25,6 +29,8 @@ namespace LemondeStandProject
 
         public void WeekSetup()
         {
+            int apiChoice = Interface.PromptUserRealTimeWeatherSystem();
+
             for (int i = 0; i < weekLength; i++)
             {
                 string name = "";
@@ -55,13 +61,54 @@ namespace LemondeStandProject
                         break;
                 }
                 Day day = new Day(name);
-                day.weather.SetTodaysWeather();
-                //day.weather.SetRealTimeWeather("Milwaukee");
-
+                if(name == "Monday" && apiChoice == 1)
+                {
+                    day.weather.SetRealTimeWeather("Milwaukee");
+                }
+                else
+                {
+                    day.weather.SetTodaysWeather();
+                }
                 week.Add(day);
             }
+            if(apiChoice == 1)
+            {
+                SetWeeklyRealTimeForeCast("Milwaukee", week);
+            }
+
         }
-        
+        public async void SetWeeklyRealTimeForeCast(string city, List<Day> week)
+        {
+            HttpClient client = new HttpClient();
+            string url = $"http://api.openweathermap.org/data/2.5/forecast?q={city}&APPID={API_KEY}&units=imperial";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                Forecast.Forecast forecast = JsonConvert.DeserializeObject<Forecast.Forecast>(jsonResult);
+                int threeHourIncrement = 0;
+
+               for(int i = 0;  i < week.Count - 1; i++)
+                {
+                    if(i == 0)
+                    {
+                        week[i].weather.SetRealWeatherForcast();
+                        week[i].SetRealCustomers();
+                    }
+                    else
+                    {
+                        week[i].weather.SetWeatherForecast(forecast.list[threeHourIncrement].weather[0].description, (int) forecast.list[i].main.temp);
+                        week[i].SetRealCustomers();
+                        week[i].weather.SetTodaysWeather();
+                        threeHourIncrement += 8;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Catastrophic Failure");
+            }
+        }
         public void CheckPlayers()
         {
             players = Interface.GetPlayers();
@@ -159,7 +206,7 @@ namespace LemondeStandProject
             {
                 player.pitcher.cupsLeftInPitcher = 0;
             }
-            player.inventory.CheckIfIceMelted(day.weather);
+            player.inventory.InventoryCheck(day.weather);
             Interface.EndOfDay(player, day);
             
         }

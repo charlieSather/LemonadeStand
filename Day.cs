@@ -31,6 +31,22 @@ namespace LemondeStandProject
                 customersLeft.Add(new Customer($"Customer {i}"));
             }
         }
+        public void ClearCustomers()
+        {
+            customers.Clear();
+            customersLeft.Clear();
+        }
+        public void SetRealCustomers()
+        {
+            ClearCustomers();
+            int numOfCustomers = weather.DetermineRealNumberOfCustomers();
+
+            for (int i = numOfCustomers; i >= 1; i--)
+            {
+                customers.Add(new Customer($"Customer {i}"));
+                customersLeft.Add(new Customer($"Customer {i}"));
+            }
+        }
 
     }
 }

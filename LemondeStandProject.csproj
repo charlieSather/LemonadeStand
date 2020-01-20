@@ -50,6 +50,7 @@
     <Compile Include="CurrentWeather.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Day.cs" />
+    <Compile Include="Forecast.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IceCube.cs" />
     <Compile Include="Interface.cs" />
