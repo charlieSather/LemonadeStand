@@ -19,7 +19,7 @@ namespace LemondeStandProject
             SetRecipe();
         }
 
-        public override void SetRecipe()
+        public override void SetRecipe()    
         {
             if(recipe == null)
             {
@@ -76,6 +76,8 @@ namespace LemondeStandProject
         {
             int demand = InsiderKnowledge(day.weather.temperature);
 
+            Interface.RobotStartShopping(name);
+
             int buy = recipe.amountOfLemons;
             if (inventory.lemons.Count < demand * buy && wallet.Money > demand * store.BulkLemonPrice(buy))
             {
@@ -83,7 +85,7 @@ namespace LemondeStandProject
                 inventory.AddLemons(demand * buy);
                 Interface.ComputerPurchase("Lemon", demand * buy, name);
             }
-            else if(inventory.lemons.Count < recipe.amountOfLemons)
+            else if(inventory.lemons.Count < buy)
             {
                 wallet.SpendMoney(recipe.amountOfLemons - inventory.lemons.Count);
                 inventory.AddLemons(recipe.amountOfLemons - inventory.lemons.Count);
@@ -97,7 +99,7 @@ namespace LemondeStandProject
                 inventory.AddSugarCubes(demand * buy);
                 Interface.ComputerPurchase("Sugar Cube", demand * buy, name);
             }
-            else if (inventory.sugarCubes.Count < recipe.amountOfSugarCubes)
+            else if (inventory.sugarCubes.Count < buy)
             {
                 wallet.SpendMoney(recipe.amountOfSugarCubes - inventory.sugarCubes.Count);
                 inventory.AddSugarCubes(recipe.amountOfSugarCubes - inventory.sugarCubes.Count);
@@ -111,26 +113,28 @@ namespace LemondeStandProject
                 inventory.AddIceCubes(demand * buy);
                 Interface.ComputerPurchase("Ice Cube", demand * buy, name);
             }
-            else if (inventory.iceCubes.Count < recipe.amountOfIceCubes)
+            else if (inventory.iceCubes.Count < buy)
             {
                 wallet.SpendMoney(recipe.amountOfIceCubes - inventory.iceCubes.Count);
                 inventory.AddIceCubes(recipe.amountOfIceCubes - inventory.iceCubes.Count);
                 Interface.ComputerPurchase("Ice Cube", recipe.amountOfSugarCubes - inventory.iceCubes.Count, name);
             }
 
-            buy = demand * 10;
+            buy = day.weather.DetermineNumberOfCustomers();
             if (inventory.cups.Count < demand * buy && wallet.Money > demand * store.BulkCupPrice(buy))
             {
                 wallet.SpendMoney(store.BulkCupPrice(buy));
-                inventory.AddCups(demand * buy);
-                Interface.ComputerPurchase("Cup", demand * buy, name);
+                inventory.AddCups(buy);
+                Interface.ComputerPurchase("Cup", buy, name);
             }
+
             else if (inventory.cups.Count < 15)
             {
                 wallet.SpendMoney(15 - inventory.cups.Count);
                 inventory.AddCups(15 - inventory.cups.Count);
                 Interface.ComputerPurchase("Cup", 15 - inventory.cups.Count, name);
             }
+            Interface.RobotDoneShopping(name);
         }
     }
 }

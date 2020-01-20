@@ -80,6 +80,7 @@ namespace LemondeStandProject
 
         public static int GetPlayers()
         {
+            Console.Clear();
             Console.WriteLine("Who's playing?");
             Console.WriteLine("1: Singe Player");
             Console.WriteLine("2: Two Player");
@@ -226,6 +227,19 @@ namespace LemondeStandProject
         public static void ComputerPurchase(string item, int bought, string name)
         {
             Console.WriteLine($"{name} bought {bought} {item}(s)");
+        }
+        
+        public static void RobotStartShopping(string name)
+        {
+            Console.Clear();
+            Console.WriteLine($"{name} is going shopping.");
+        }
+
+        public static void RobotDoneShopping(string name)
+        {
+            Console.WriteLine($"{name} is done shopping");
+            Console.WriteLine("Press enter to continue.");
+            Console.ReadLine();
         }
     }
 }
