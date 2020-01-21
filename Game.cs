@@ -204,7 +204,7 @@ namespace LemondeStandProject
             } while (true);
 
 
-            player.CalculateUsage(pitchersMade, store);
+            player.CalculateProfit(pitchersMade, store);
             if (player.pitcher != null)
             {
                 player.pitcher.cupsLeftInPitcher = 0;
@@ -222,14 +222,14 @@ namespace LemondeStandProject
                 if (players > 1) { Interface.StartTurn(player1); }
 
                 player1.customersServed = 0;
-                player1.profit = 0;
+                player1.dailyProfit = 0;
                 RunDay(player1, week[currentDay]);
 
                 if (players > 1)
                 {
                     Interface.StartTurn(player2);
                     player2.customersServed = 0;
-                    player2.profit = 0;
+                    player2.dailyProfit = 0;
                     week[currentDay].customersLeft.Clear();
                     week[currentDay].customersLeft.AddRange(week[currentDay].customers);
                     RunDay(player2, week[currentDay]);

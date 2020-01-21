@@ -13,6 +13,7 @@ namespace LemondeStandProject
         public Wallet wallet;
         public Recipe recipe;
         public Pitcher pitcher;
+        public double dailyProfit;
         public double profit;
         public int customersServed = 0;
 
@@ -51,12 +52,13 @@ namespace LemondeStandProject
         //as a function it only performs a single taskm which is
         //decrementing your daily profit based on the price of the 
         //ingredients you used that day.
-        public void CalculateUsage(int pitchersMade, Store store)
+        public void CalculateProfit(int pitchersMade, Store store)
         {
-            profit -= store.pricePerLemon * pitchersMade * recipe.amountOfLemons;
-            profit -= store.pricePerSugarCube * pitchersMade * recipe.amountOfSugarCubes;
-            profit -= store.pricePerIceCube * pitchersMade * recipe.amountOfIceCubes;
-            profit -= store.pricePerCup * customersServed;
+            dailyProfit -= store.pricePerLemon * pitchersMade * recipe.amountOfLemons;
+            dailyProfit -= store.pricePerSugarCube * pitchersMade * recipe.amountOfSugarCubes;
+            dailyProfit -= store.pricePerIceCube * pitchersMade * recipe.amountOfIceCubes;
+            dailyProfit -= store.pricePerCup * customersServed;
+            profit = wallet.Money - 20;
         }
 
         public abstract void GoShopping(Store store, Day day);

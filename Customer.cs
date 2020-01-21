@@ -40,7 +40,7 @@ namespace LemondeStandProject
         {
             Interface.CustomerPurchase(this);
             player.wallet.Money += player.recipe.pricePerCup;
-            player.profit += player.recipe.pricePerCup;
+            player.dailyProfit += player.recipe.pricePerCup;
             player.pitcher.PourCup(player.inventory);
             player.customersServed++;
         }
