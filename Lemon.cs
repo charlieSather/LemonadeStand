@@ -23,6 +23,8 @@ namespace LemondeStandProject
             shelfLife--;
         }
 
+        //This method utilizes the single use principle of SOLID.
+        //Its only use is to determine if a given lemon has expired or not.
         public bool Expired()
         {
             return shelfLife < 1 ? true : false;
