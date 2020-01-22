@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LemondeStandProject
 {
     
-    class Lemon : Item
+    public class Lemon : Item
     {
         private int shelfLife;
 

@@ -1,7 +1,7 @@
 ﻿public class CurrentWeather
 {
     public Coord coord { get; set; }
-    public Weather[] weather { get; set; }
+    public WeatherApi[] weather { get; set; }
     public string _base { get; set; }
     public Main main { get; set; }
     public int visibility { get; set; }
@@ -52,7 +52,7 @@ public class Sys
     public int sunset { get; set; }
 }
 
-public class Weather
+public class WeatherApi
 {
     public int id { get; set; }
     public string main { get; set; }

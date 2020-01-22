@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    abstract class Item
+    public abstract class Item
     {
         //Each of our inventory items are children of our abstract item class
         //This follows the Liskov Substitution principle because each class

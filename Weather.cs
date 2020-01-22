@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace LemondeStandProject
 {
-    class Weather
+    public class Weather
     {
         readonly string API_KEY = "3b17e245d06ca8548f65bcce526e7b06";
 

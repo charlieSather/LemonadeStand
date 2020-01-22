@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Inventory
+    public class Inventory
     {
         public List<Lemon> lemons;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
-        public List<SugarCube> sugarCubes;
+        public List<SugarCube>sugarCubes;
 
         public Inventory()
         {

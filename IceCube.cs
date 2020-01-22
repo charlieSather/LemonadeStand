@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class IceCube : Item
+    public class IceCube : Item
     {
 
 

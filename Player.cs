@@ -48,7 +48,7 @@ namespace LemondeStandProject
             }
         }
 
-        //The CalculateUsage method follows the single use principle beacause
+        //The CalculateUsage method follows the single use principle because
         //as a function it only performs a single taskm which is
         //decrementing your daily profit based on the price of the 
         //ingredients you used that day.
