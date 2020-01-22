@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    abstract class Player
+    public abstract class Player
     {
         public string name;
         public Inventory inventory;

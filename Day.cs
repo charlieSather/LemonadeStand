@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Day
+    public class Day
     {
         public Weather weather { get; set; }
         public List<Customer> customers { get; set; }

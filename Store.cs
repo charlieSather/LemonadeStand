@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Store
+    public class Store
     {
         public double pricePerLemon;
         public double pricePerSugarCube;

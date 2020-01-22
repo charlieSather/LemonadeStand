@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Customer
+    public class Customer
     {
         public string name { get; set; }
         int buyChance;

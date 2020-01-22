@@ -11,7 +11,7 @@ namespace LemondeStandProject
     //purpose our Player class was being used for previously.
 
 
-    class Human : Player
+    public class Human : Player
     {
         public Human(string name)
         {

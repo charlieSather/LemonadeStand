@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemondeStandProject
 {
-    class Wallet
+    public class Wallet
     {
         private double money;
         public double Money
